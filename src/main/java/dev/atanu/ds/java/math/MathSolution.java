@@ -12,7 +12,11 @@ public class MathSolution {
 	public static void main(String[] args) {
 		MathSolution solution = new MathSolution();
 		int[] nums = new int[] { 5, 1, 6 };
+		int[][] points = {{1,1},{2,2},{3,3},{4,4},{5,5}};
+		int[][] circles = {{1,2,2},{2,2,2},{4,3,2},{4,3,3}};
 		System.out.println(solution.subsetXORSum(nums));
+		int[] countIntersections = countPoints(points, circles);
+		System.out.println(countIntersections);
 	}
 
 	/**
@@ -175,5 +179,33 @@ public class MathSolution {
             return 0;
         }
         return (int)sum;
+    }
+	
+	/**
+	 * https://leetcode.com/problems/queries-on-number-of-points-inside-a-circle/
+	 * 
+	 * @param points
+	 * @param queries
+	 * @return
+	 */
+	public static int[] countPoints(int[][] points, int[][] queries) {
+        int[] result = new int[queries.length];
+        for(int i = 0; i < queries.length; i++) {
+            int count = 0;
+            int[] circle = queries[i];
+            for(int[] point : points) {
+                boolean isOnCircle = checkDistance(circle[2], circle[0], 
+                    circle[1], point[0], point[1]);
+                 if(isOnCircle) {
+                    count += 1;
+                }
+            }
+            result[i] = count;
+        }
+        return result;
+    }
+
+    private static boolean checkDistance(int radious, int x1, int y1, int x2, int y2) {
+         return (radious * radious) >= (((x1-x2) * (x1-x2)) + ((y1-y2) * (y1-y2)));
     }
 }

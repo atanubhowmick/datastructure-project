@@ -19,92 +19,131 @@ public class PermutationCombination {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int[] arr = new int[] { 1, 2, 3, 6, 4 };
+		int[] arr = new int[] { 1, 2, 3};
 		PermutationCombination pc = new PermutationCombination();
-		pc.nextPermutation(arr);
-		System.out.println(pc.getMinSwaps(arr, 2));
+
+		System.out.println("All Permutations: " + pc.getAllPermutations(arr));
+		System.out.println("Permutations without repeat: " + pc.permute(arr));
+
+		System.out.println("All Permutations String: " + pc.getAllPermutationsString("ABC"));
+		System.out.println("Permutations without repeat: " + pc.getValidPermutationsUsingSwap("ABC"));
 	}
-	
+
+	/**
+	 * The integers provided in the nums array are unique, no duplicates present.
+	 * The output also should not contain any repeated number in any permutation.
+	 *
+	 * <p>
+	 * Input: nums = [1,2,3]
+	 * Output: [[1,1,1],[1,1,2],[1,1,3],[1,2,1],[1,2,2],[1,2,3],[1,3,1],[1,3,2],[1,3,3],
+	 * 			[2,1,1],[2,1,2],[2,1,3],[2,2,1],[2,2,2],[2,2,3],[2,3,1],[2,3,2],[2,3,3],
+	 * 			[3,1,1],[3,1,2],[3,1,3],[3,2,1],[3,2,2],[3,2,3],[3,3,1],[3,3,2],[3,3,3]]
+	 *
+	 * @param nums
+	 * @return List of permutations
+	 */
+	public List<List<Integer>> getAllPermutations(int[] nums) {
+		List<List<Integer>> list = new ArrayList<>();
+		getAllPermutations(list, new ArrayList<>(), nums);
+		return list;
+	}
+
+	private void getAllPermutations(List<List<Integer>> list, List<Integer> tempList, int[] nums) {
+		if(nums.length == tempList.size()) {
+			list.add(new ArrayList<>(tempList));
+		} else {
+			for(int i = 0; i < nums.length; i++) {
+				tempList.add(nums[i]);
+				getAllPermutations(list, tempList, nums);
+				tempList.remove(tempList.size() - 1);
+			}
+		}
+	}
+
+	/**
+	 * https://leetcode.com/problems/permutations/
+	 * <br>
+	 * The integers provided in the nums array are unique, no duplicates present.
+	 * The output also should not contain any repeated number in any permutation.
+	 *
+	 * <br>
+	 * Input: nums = [1,2,3]
+	 * <br>
+	 * Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+	 *
+	 * @param nums
+	 * @return List of permutations
+	 */
+	public List<List<Integer>> permute(int[] nums) {
+		List<List<Integer>> list = new ArrayList<>();
+		permutationBackTracking(list, new ArrayList<>(), nums);
+		return list;
+	}
+
+	private void permutationBackTracking(List<List<Integer>> list, List<Integer> tempList, int[] nums) {
+		if(nums.length == tempList.size()) {
+			list.add(new ArrayList<>(tempList));
+		} else {
+			for(int i = 0; i < nums.length; i++) {
+				if(tempList.contains(nums[i])) {
+					continue; // condition added to ignore duplicates
+				}
+				tempList.add(nums[i]);
+				permutationBackTracking(list, tempList, nums);
+				tempList.remove(tempList.size() - 1);
+			}
+		}
+	}
+
 	/**
 	 * Provide all permutations. For input string 'ABC' it returns
 	 * [AAA, AAB, AAC, ABA, ABB, ABC, ACA, ACB, ACC, BAA, BAB, BAC, BBA, BBB, BBC, BCA, BCB, BCC, CAA, CAB, CAC, CBA, CBB, CBC, CCA, CCB, CCC]
 	 * 
 	 * @param str
 	 */
-	public List<String> getAllPermutations(String str) {
+	public List<String> getAllPermutationsString(String str) {
 		List<String> list = new ArrayList<>();
-		getAllPermutations(list, str, new StringBuilder());
+		getAllPermutationsString(list, str, new StringBuilder());
 		return list;
 	}
 
-	private void getAllPermutations(List<String> list, String str, StringBuilder sb) {
+	private void getAllPermutationsString(List<String> list, String str, StringBuilder sb) {
 		if (sb.length() == str.length()) {
 			list.add(sb.toString());
 		} else {
 			for (int i = 0; i < str.length(); i++) {
 				sb.append(str.charAt(i));
-				getAllPermutations(list, str, sb);
-				sb.setLength(sb.length() - 1);
+				getAllPermutationsString(list, str, sb);
+				//sb.setLength(sb.length() - 1);
+				sb.delete(sb.length() - 1, sb.length());
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
 	 * <br>
-	 * 
-	 * Get all combinations. For input string 'ABC', it returns
-	 * [ABC, ACB, BAC, BCA, CBA, CAB]
-	 * 
-	 * @param str - should not contains any duplicate character
-	 */
-	public List<String> getValidPermutations(String str) {
-		List<String> list = new ArrayList<>();
-		validPermutations(list, str.toCharArray(), 0);
-		return list;
-	}
-
-	private void validPermutations(List<String> list, char[] arr, int start) {
-		if (start == arr.length) {
-			list.add(new String(arr));
-		} else {
-			for (int i = start; i < arr.length; i++) {
-				swap(arr, start, i);
-				validPermutations(list, arr, start + 1);
-				swap(arr, start, i);
-			}
-		}
-	}
-	
-	private void swap(char[] arr, int i, int j) {
-		char temp = arr[i];
-		arr[i] = arr[j];
-		arr[j] = temp;
-	}
-	
-	
-	/**
-	 * Get all valid (non-repetitive) permutations. 
-	 * 
+	 * Get all valid (non-repetitive) permutations.
+	 * <br>
 	 * For input string 'ABC', it returns
-	 * [ABC, ACB, BAC, BCA, CBA, CAB] 
+	 * [ABC, ACB, BAC, BCA, CBA, CAB]
 	 * Please see the topmost method - getAllPermutations()
-	 * 
-	 * <br> 
+	 *
+	 * <br>
 	 * Same concept as (next method - permute())
 	 * https://leetcode.com/problems/permutations/
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
-	public List<String> getValidPermutations1(String str) {
+	public List<String> getValidPermutations(String str) {
 		List<String> list = new ArrayList<>();
-		getValidPermutations1(list, str, new ArrayList<>());
+		getValidPermutations(list, str, new ArrayList<>());
 		return list;
 	}
 
-	private void getValidPermutations1(List<String> list, String str, List<Character> tempList) {
+	private void getValidPermutations(List<String> list, String str, List<Character> tempList) {
 		if (tempList.size() == str.length()) {
 			StringBuilder builder = new StringBuilder();
 			for (Character ch : tempList) {
@@ -117,7 +156,7 @@ public class PermutationCombination {
 					continue;
 				}
 				tempList.add(str.charAt(i));
-				getValidPermutations1(list, str, tempList);
+				getValidPermutations(list, str, tempList);
 				tempList.remove(tempList.size() - 1);
 			}
 		}
@@ -125,33 +164,37 @@ public class PermutationCombination {
 
 	
 	/**
-	 * https://leetcode.com/problems/permutations/
+	 * https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
+	 * <br>
 	 * 
-	 * @param nums
-	 * @return
+	 * Get all permutations without repeated characters in a permutation. For input string 'ABC', it returns
+	 * [ABC, ACB, BAC, BCA, CBA, CAB]
+	 * 
+	 * @param str - should not contains any duplicate character
 	 */
-	public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        //Arrays.sort(nums); Not required
-        permutationBackTracking(list, new ArrayList<>(), nums);
-        return list;
-    }
-    
-    private void permutationBackTracking(List<List<Integer>> list, List<Integer> tempList,
-                                        int[] nums) {
-        if(nums.length == tempList.size()) {
-            list.add(new ArrayList<>(tempList));
-        } else {
-            for(int i = 0; i < nums.length; i++) {
-                if(tempList.contains(nums[i])) {
-                    continue;
-                }
-                tempList.add(nums[i]);
-                permutationBackTracking(list, tempList, nums);
-                tempList.remove(tempList.size() - 1);
-            }
-        }
-    }
+	public List<String> getValidPermutationsUsingSwap(String str) {
+		List<String> list = new ArrayList<>();
+		validPermutationsUsingSwap(list, str.toCharArray(), 0);
+		return list;
+	}
+
+	private void validPermutationsUsingSwap(List<String> list, char[] arr, int start) {
+		if (start == arr.length) {
+			list.add(new String(arr));
+		} else {
+			for (int i = start; i < arr.length; i++) {
+				swap(arr, start, i); // Using swap to permute
+				validPermutationsUsingSwap(list, arr, start + 1);
+				swap(arr, start, i);
+			}
+		}
+	}
+	
+	private void swap(char[] arr, int i, int j) {
+		char temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
     
     
 	/**
@@ -163,17 +206,17 @@ public class PermutationCombination {
 	 */
 	public List<List<Integer>> permute1(int[] nums) {
 		List<List<Integer>> list = new ArrayList<>();
-		validPermutations1(list, nums, 0);
+		validPermutationsUsingSwap(list, nums, 0);
 		return list;
 	}
 
-	private void validPermutations1(List<List<Integer>> list, int[] nums, int start) {
+	private void validPermutationsUsingSwap(List<List<Integer>> list, int[] nums, int start) {
 		if (start == nums.length - 1) {
 			list.add(Arrays.stream(nums).boxed().collect(Collectors.toList()));
 		} else {
 			for (int i = start; i < nums.length; i++) {
 				swap(nums, start, i);
-				validPermutations1(list, nums, start + 1);
+				validPermutationsUsingSwap(list, nums, start + 1);
 				swap(nums, start, i);
 			}
 		}
@@ -251,7 +294,7 @@ public class PermutationCombination {
 	}
 	
 	/**
-	 * Get all combinations. For input string 'ABC' and k = 2, it returns
+	 * Get all permutations. For input string 'ABC' and k = 2, it returns
 	 * [AA, AB, AC, BB, BC, CC]
 	 * 
 	 * @param str - should not contains any duplicate character
@@ -521,8 +564,8 @@ public class PermutationCombination {
 	 * 
 	 * Solution with DP
 	 * 
-	 * @param n
-	 * @param k
+	 * @param nums
+	 * @param
 	 * @return
 	 */
 	public int targetSum4UsingDP(int[] nums, int target) {
@@ -684,7 +727,7 @@ public class PermutationCombination {
 	/**
 	 * https://leetcode.com/problems/minimum-adjacent-swaps-to-reach-the-kth-smallest-number/
 	 * 
-	 * @param num
+	 * @param nums
 	 * @param k
 	 * @return
 	 */

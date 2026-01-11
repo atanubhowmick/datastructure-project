@@ -4,8 +4,11 @@
 package dev.atanu.ds.java.tree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -431,6 +434,61 @@ public class BinaryTreeSolution {
         min = Math.min(node.val, min);
         max = Math.max(node.val, max);
         return Math.max(inorder(node.left, min, max), inorder(node.right, min, max));
+    }
+	
+	
+	private Map<TreeNode, Integer> distanceMap = new HashMap<>();
+	
+	/**
+	 * https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+	 * 
+	 * @param root
+	 * @param target
+	 * @param k
+	 * @return
+	 */
+	public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+		List<Integer> res = new LinkedList<>();
+        find(root, target);
+        dfs(root, target, k, distanceMap.get(root), res);
+        return res;
+    }
+
+	private int find(TreeNode root, TreeNode target) {
+        if (root == null) {
+            return -1;
+        }
+        if (root == target) {
+            distanceMap.put(root, 0);
+            return 0;
+        }
+        int left = find(root.left, target);
+        if (left >= 0) {
+            distanceMap.put(root, left + 1);
+            return left + 1;
+        }
+        
+		int right = find(root.right, target);
+		if (right >= 0) {
+            distanceMap.put(root, right + 1);
+            return right + 1;
+        }
+        return -1;
+    }
+    
+    private void dfs(TreeNode root, TreeNode target, int k, 
+            int length, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        if (distanceMap.containsKey(root)) {
+            length = distanceMap.get(root);
+        }
+        if (length == k) {
+            res.add(root.val);
+        }
+        dfs(root.left, target, k, length + 1, res);
+        dfs(root.right, target, k, length + 1, res);
     }
     
 	/**
