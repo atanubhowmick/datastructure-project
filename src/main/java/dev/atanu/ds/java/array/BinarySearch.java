@@ -3,6 +3,9 @@
  */
 package dev.atanu.ds.java.array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Atanu Bhowmick
  *
@@ -10,15 +13,15 @@ package dev.atanu.ds.java.array;
 public class BinarySearch {
 
 	public static void main(String[] args) {
+		BinarySearch binarySearch = new BinarySearch();
 		int[] arr = {4, 7, 11, 15, 20, 24};
 		int searchInt = 7;
+		System.out.println(binarySearch.search1(arr, searchInt));
+		System.out.println(binarySearch.lengthOfLIS(new int[] {0,1,0,3,2,3}));
 
-		int index = search(arr, searchInt);
-		System.out.println(index);
 	}
 
-	/*
-	public static int search(int[] arr, int target) {
+	public int search(int[] arr, int target) {
 		int first = 0;
 		int last = arr.length - 1;
 		int mid = (first + last) / 2;
@@ -37,9 +40,15 @@ public class BinarySearch {
 		}
 		return found ? mid : -1;
 	}
-	*/
-	
-	public static int search(int[] arr, int target) {
+
+	/**
+	 *
+	 *
+	 * @param arr
+	 * @param target
+	 * @return
+	 */
+	public int search1(int[] arr, int target) {
 		int first = 0;
 		int last = arr.length - 1;
 		while (first < last) {
@@ -51,5 +60,44 @@ public class BinarySearch {
 			}
 		}
 		return arr[first] == target ? first : -1;
+	}
+
+	/**
+	 * https://leetcode.com/problems/longest-increasing-subsequence/
+	 *
+	 * Given an integer array nums, return the length of the longest
+	 * strictly increasing subsequence.
+	 * <br>
+	 * Input: nums = [10,9,2,5,3,7,101,18]
+	 * Output: 4
+	 *
+	 * @param nums
+	 * @return
+	 */
+	public int lengthOfLIS(int[] nums) {
+		List<Integer> list = new ArrayList<>();
+		for(int i = 0; i < nums.length - 1; i++) {
+			int num = nums[i];
+			if(list.isEmpty() || list.get(list.size() - 1) < num) {
+				list.add(num);
+			} else {
+				int index = getIndex(list, num);
+				list.set(index, num);
+			}
+		}
+		return list.size();
+	}
+
+	private int getIndex(List<Integer> list, int num) {
+		int start = 0, end = list.size() - 1;
+		while(start < end) {
+			int mid = (start + end) >>> 1;
+			if(num > list.get(mid)) {
+				start = mid + 1;
+			} else {
+				end = mid;
+			}
+		}
+		return start;
 	}
 }

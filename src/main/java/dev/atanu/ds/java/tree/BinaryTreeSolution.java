@@ -3,14 +3,7 @@
  */
 package dev.atanu.ds.java.tree;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 
@@ -24,6 +17,8 @@ public class BinaryTreeSolution {
 		List<Integer> list = new ArrayList<>();
 		solution.dfsPostorder(solution.createTree(), list);
 		System.out.println(list);
+
+		System.out.println(solution.bfs(solution.createTree()));
 	}
 
 	/**
@@ -133,6 +128,35 @@ public class BinaryTreeSolution {
 		dfsPostorder(node.right, list);
 		list.add(node.val);
 	}
+
+	/**
+	 * Breadth-First Search (BFS)
+	 *
+	 * @param root
+	 * @return
+	 */
+	public List<Integer> bfs(TreeNode root) {
+		List<Integer> list = new ArrayList<>();
+		if (root == null) {
+			return list;
+		}
+
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+
+		while (!queue.isEmpty()) {
+			TreeNode currentNode = queue.poll();
+			list.add(currentNode.val);
+			if (currentNode.left != null) {
+				queue.add(currentNode.left);
+			}
+			if (currentNode.right != null) {
+				queue.add(currentNode.right);
+			}
+		}
+
+		return list;
+	}
 	
 	//-----------------------------------------
 	
@@ -182,7 +206,7 @@ public class BinaryTreeSolution {
         }
         flatten(root.right);
     }
-	
+
 	
 	private TreeNode prev = null;
 
@@ -222,12 +246,43 @@ public class BinaryTreeSolution {
         return hasPathSum(root.left, targetSum-root.val)
                 || hasPathSum(root.right, targetSum-root.val);
 	}
+
+
+	/**
+	 * https://leetcode.com/problems/path-sum-ii/
+	 *
+	 * @param root
+	 * @param targetSum
+	 * @return List of all the paths matching with the target sum
+	 */
+	public List<List<Integer>> pathSum2(TreeNode root, int targetSum) {
+		List<List<Integer>> list = new ArrayList<>();
+		pathSumHelper(root, targetSum, list, new ArrayList<>());
+		return list;
+	}
+
+	private void pathSumHelper(TreeNode node, int targetSum, List<List<Integer>> list, List<Integer> tempList) {
+		if(node == null) {
+			return;
+		}
+
+		tempList.add(node.val);
+
+		if(node.left == null && node.right == null && node.val == targetSum) {
+			list.add(new ArrayList<>(tempList));
+		} else {
+			pathSumHelper(node.left, targetSum - node.val, list, tempList);
+			pathSumHelper(node.right, targetSum - node.val, list, tempList);
+		}
+
+		tempList.remove(tempList.size()-1);
+	}
 	
 
 	private int count = 0;
 
 	/**
-	 * {@link https://leetcode.com/problems/path-sum-iii/}
+	 * https://leetcode.com/problems/path-sum-iii/
 	 * 
 	 * @param root
 	 * @param targetSum
@@ -286,6 +341,36 @@ public class BinaryTreeSolution {
         return matchCount + pathSumHelperPreorder(node.left, targetSum - node.val) 
                 + pathSumHelperPreorder(node.right, targetSum - node.val);
     }
+
+	private int maxSum;
+
+	/**
+	 * https://leetcode.com/problems/binary-tree-maximum-path-sum/
+	 * @param root
+	 * @return max sum
+	 */
+	public int maxPathSum(TreeNode root) {
+		maxSum = Integer.MIN_VALUE;
+		maxPathDown(root);
+		return maxSum;
+	}
+
+	private int maxPathDown(TreeNode node) {
+		if (node == null) {
+			return 0;
+		};
+
+        /* Make a note of this zero.
+        A path from start to end, goes up on the tree for 0 or more steps,
+        then goes down for 0 or more steps. Once it goes down, it can't go up.
+        Each path has a highest node, which is also the lowest common ancestor
+        of all other nodes on the path. */
+		int left = Math.max(0, maxPathDown(node.left));
+		int right = Math.max(0, maxPathDown(node.right));
+
+		maxSum = Math.max(maxSum, left + right + node.val);
+		return Math.max(left, right) + node.val;
+	}
 
 	/**
 	 * {@link https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/}

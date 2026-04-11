@@ -19,6 +19,41 @@ public class PriorityQueueSolution {
 	public static void main(String[] args) {
 
 	}
+
+    /**
+     * https://leetcode.com/problems/kth-largest-element-in-an-array/
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int findKthLargest(int[] nums, int k) {
+        if(nums.length < k) {
+            return 0;
+        }
+        PriorityQueue<Integer> que = new PriorityQueue<>();
+        for(int num : nums) {
+            que.offer(num);
+            if(que.size() > k) {
+                que.poll();
+            }
+        }
+        return que.poll();
+    }
+
+    public int findKthSmallest(int[] nums, int k) {
+        if(nums.length < k) {
+            return 0;
+        }
+        PriorityQueue<Integer> que = new PriorityQueue<>((a, b) -> b - a);
+        for(int num : nums) {
+            que.offer(num);
+            if(que.size() > k) {
+                que.poll();
+            }
+        }
+        return que.poll();
+    }
 	
 	/**
 	 * https://leetcode.com/problems/merge-intervals/

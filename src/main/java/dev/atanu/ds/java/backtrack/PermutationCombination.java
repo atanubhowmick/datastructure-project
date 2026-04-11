@@ -26,7 +26,7 @@ public class PermutationCombination {
 		System.out.println("Permutations without repeat: " + pc.permute(arr));
 
 		System.out.println("All Permutations String: " + pc.getAllPermutationsString("ABC"));
-		System.out.println("Permutations without repeat: " + pc.getValidPermutationsUsingSwap("ABC"));
+		System.out.println("Permutations without repeat: " + pc.getAllCombinations("ABC", 2));
 	}
 
 	/**
@@ -294,10 +294,10 @@ public class PermutationCombination {
 	}
 	
 	/**
-	 * Get all permutations. For input string 'ABC' and k = 2, it returns
+	 * Get all combinations with repeat characters . For input string 'ABC' and k = 2, it returns
 	 * [AA, AB, AC, BB, BC, CC]
 	 * 
-	 * @param str - should not contains any duplicate character
+	 * @param str - should not contain any duplicate character
 	 */
 	public List<String> getAllCombinations(String str, int k) {
 		List<String> list = new ArrayList<>();
@@ -311,6 +311,7 @@ public class PermutationCombination {
 		} else {
 			for (int i = start; i < str.length(); i++) {
 				sb.append(str.charAt(i));
+				// only diff b/w permutation and combination is sending (i) and starting the next loop from there
 				getAllCombinations(list, str, sb, k, i); // Need to send i for combination
 				sb.setLength(sb.length() - 1);
 			}
@@ -508,8 +509,8 @@ public class PermutationCombination {
 	/**
 	 * https://leetcode.com/problems/combination-sum-iv/
 	 * 
-	 * @param n
-	 * @param k
+	 * @param nums
+	 * @param target
 	 * @return
 	 */
 	public int targetSum4(int[] nums, int target) {

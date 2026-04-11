@@ -39,8 +39,7 @@ public class QuickSort {
 			}
 			nums[left] = nums[right];
 			
-			while (left < right && nums[left] <= pivot)
-			{
+			while (left < right && nums[left] <= pivot) {
 				left++;
 			}
 			nums[right] = nums[left];
@@ -49,7 +48,14 @@ public class QuickSort {
 		return left;
 	}
 	*/
-	
+
+	/**
+	 * Better approach
+	 *
+	 * @param nums
+	 * @param left
+	 * @param right
+	 */
 	private void sort(int[] nums, int left, int right) {
 		if (left >= right) {
 			return;

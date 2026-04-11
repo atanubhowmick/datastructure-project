@@ -19,6 +19,7 @@ public class ArraySolution {
 		int[] nums = new int[] { 17, 12, 10, 2, 7, 2, 11, 20, 8 };
 		ArraySolution solution = new ArraySolution();
 		System.out.println(solution.camelMatch(new String[] {"FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"}, "FB"));
+		System.out.println(solution.canFinish(3, new int[][] {{1,0},{1,2},{0,1}}));
 	}
 
 	/**
@@ -1369,4 +1370,54 @@ public class ArraySolution {
 		towerOfHanoi(n - 1, middleRod, fromRod, toRod);
 	}
 
+	/**
+	 * https://leetcode.com/problems/maximum-length-of-pair-chain
+	 *
+	 * @param pairs
+	 * @return
+	 */
+	public int findLongestChain(int[][] pairs) {
+		PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> Integer.compare(a[1], b[1]));
+		for(int[] pair : pairs) {
+			queue.offer(pair);
+		}
+
+		int count = 0, prev = queue.peek()[1];
+		while(!queue.isEmpty()) {
+			int[] array = queue.poll();
+			if(array[0] > prev) {
+				count++;
+				prev = array[1];
+			}
+		}
+
+		return count + 1;
+	}
+
+	/**
+	 * https://leetcode.com/problems/course-schedule/
+	 *
+	 * @param numCourses
+	 * @param prerequisites
+	 * @return
+	 */
+	public boolean canFinish(int numCourses, int[][] prerequisites) {
+		Map<Integer, Integer> map = new HashMap<>();
+		for(int[] arr : prerequisites) {
+			if(arr[0] == arr[1]) {
+				return false;
+			}
+			int key = arr[1];
+			while(map.containsKey(key)) {
+				int value = map.get(key);
+				if(value == arr[0]) {
+					return false;
+				}
+				key = value;
+			}
+			map.put(arr[0], arr[1]);
+		}
+
+		return true;
+	}
 }
