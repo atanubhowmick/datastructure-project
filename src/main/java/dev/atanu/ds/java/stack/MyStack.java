@@ -7,7 +7,7 @@ package dev.atanu.ds.java.stack;
  * @author Atanu Bhowmick
  *
  */
-public class Stack {
+public class MyStack {
 
 	int[] arr;
 	int top;
@@ -18,7 +18,7 @@ public class Stack {
 	 * 
 	 * @param size
 	 */
-	public Stack(int size) {
+	public MyStack(int size) {
 		arr = new int[size];
 		this.size = size;
 		top = -1;
