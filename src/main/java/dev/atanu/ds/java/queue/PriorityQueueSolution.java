@@ -41,6 +41,59 @@ public class PriorityQueueSolution {
         return que.poll();
     }
 
+    /**
+     * https://leetcode.com/problems/kth-largest-element-in-an-array/
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int findKthLargestQuickSelect(int[] nums, int k) {
+        int searchIdx = nums.length - k;
+        int start = 0, end = nums.length - 1;
+        while (start < end) {
+            int pivotIdx = partition(nums, start, end);
+            if (pivotIdx == searchIdx) {
+                return nums[pivotIdx];
+            } else if (pivotIdx > searchIdx) {
+                end = pivotIdx - 1;
+            } else {
+                start = pivotIdx + 1;
+            }
+        }
+        return nums[start];
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    private int partition(int[] nums, int start, int end) {
+        int pivot = nums[start], left = start, right = end;
+        while (start < end) {
+            while (start < right && pivot >= nums[start]) {
+                start++;
+            }
+            while (left < end && pivot <= nums[end]) {
+                end--;
+            }
+            if (start < end) {
+                swap(nums, start, end);
+            }
+        }
+        swap(nums, left, end);
+        return end;
+    }
+
+    /**
+     * https://leetcode.com/problems/kth-largest-element-in-an-array/
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
     public int findKthSmallest(int[] nums, int k) {
         if(nums.length < k) {
             return 0;

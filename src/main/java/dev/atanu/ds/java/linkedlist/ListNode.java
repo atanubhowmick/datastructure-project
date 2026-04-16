@@ -1,4 +1,4 @@
-package dev.atanu.ds.java.linked.list;
+package dev.atanu.ds.java.linkedlist;
 
 public class ListNode {
 

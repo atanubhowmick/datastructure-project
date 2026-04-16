@@ -1,7 +1,7 @@
 /**
  * 
  */
-package dev.atanu.ds.java.array;
+package dev.atanu.ds.java.binary.search;
 
 import java.util.ArrayList;
 import java.util.List;

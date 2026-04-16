@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-import dev.atanu.ds.java.linked.list.ListNode;
+import dev.atanu.ds.java.linkedlist.ListNode;
 
 public class ArraySolution {
 
@@ -20,54 +20,6 @@ public class ArraySolution {
 		ArraySolution solution = new ArraySolution();
 		System.out.println(solution.camelMatch(new String[] {"FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"}, "FB"));
 		System.out.println(solution.canFinish(3, new int[][] {{1,0},{1,2},{0,1}}));
-	}
-
-	/**
-	 * https://leetcode.com/problems/next-greater-element-i/
-	 * 
-	 * @param nums1
-	 * @param nums2
-	 * @return
-	 */
-	public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-		int[] result = new int[nums1.length];
-		Stack<Integer> stack = new Stack<>();
-		Map<Integer, Integer> map = new HashMap<>();
-
-		for (int i = 0; i < nums2.length; i++) {
-			while (!stack.isEmpty() && stack.peek() < nums2[i]) {
-				map.put(stack.pop(), nums2[i]);
-			}
-			stack.push(nums2[i]);
-		}
-		for (int j = 0; j < nums1.length; j++) {
-			result[j] = map.getOrDefault(nums1[j], -1);
-		}
-		return result;
-	}
-
-	/**
-	 * {@link https://leetcode.com/problems/next-greater-element-ii/}
-	 * 
-	 * @param nums
-	 * @return
-	 */
-	public int[] nextGreaterElements(int[] nums) {
-		int n = nums.length;
-		int[] next = new int[n];
-		Arrays.fill(next, -1);
-		Stack<Integer> stack = new Stack<>();
-		for (int i = 0; i < n * 2; i++) {
-			int num = nums[i % n];
-			while (!stack.isEmpty() && nums[stack.peek()] < num) {
-				int prevIndex = stack.pop();
-				next[prevIndex] = num;
-			}
-			if (i < n) {
-				stack.push(i);
-			}
-		}
-		return next;
 	}
 
 	/**
@@ -155,115 +107,7 @@ public class ArraySolution {
 		return map.getOrDefault(leftSum, -1);
 	}
 
-	/**
-	 * https://leetcode.com/problems/kth-largest-element-in-an-array/
-	 * 
-	 * @param nums
-	 * @param k
-	 * @return
-	 */
-	public int findKthLargest(int[] nums, int k) {
-		if (nums == null || nums.length < k) {
-			return -1;
-		}
-		PriorityQueue<Integer> queue = new PriorityQueue<>();
-		for (int num : nums) {
-			queue.add(num);
-			if (queue.size() > k) {
-				queue.poll();
-			}
-		}
-		return queue.peek();
-	}
 
-	/**
-	 * https://leetcode.com/problems/kth-largest-element-in-an-array/
-	 * 
-	 * @param nums
-	 * @param k
-	 * @return
-	 */
-	public int findKthSmallest(int[] nums, int k) {
-		if (nums == null || nums.length < k) {
-			return -1;
-		}
-		PriorityQueue<Integer> queue = new PriorityQueue<>((a1, a2) -> a1 > a2 ? -1 : (a1 < a2 ? 1 : 0));
-		for (int num : nums) {
-			queue.add(num);
-			if (queue.size() > k) {
-				queue.poll();
-			}
-		}
-		return queue.peek();
-	}
-
-	/**
-	 * https://leetcode.com/problems/kth-largest-element-in-an-array/
-	 * 
-	 * @param nums
-	 * @param k
-	 * @return
-	 */
-	public int findKthLargestWithQuickSelect(int[] nums, int k) {
-		int start = 0;
-		int end = nums.length - 1;
-		int index = nums.length - k;
-		while (start < end) {
-			int pivot = partion(nums, start, end);
-			if (pivot < index)
-				start = pivot + 1;
-			else if (pivot > index)
-				end = pivot - 1;
-			else
-				return nums[pivot];
-		}
-		return nums[start];
-	}
-
-	private int partion(int[] nums, int start, int end) {
-		int pivot = start;
-		int temp;
-		while (start <= end) {
-			while (start <= end && nums[start] <= nums[pivot]) {
-				start++;
-			}
-			while (start <= end && nums[end] > nums[pivot]) {
-				end--;
-			}
-			if (start > end)
-				break;
-			temp = nums[start];
-			nums[start] = nums[end];
-			nums[end] = temp;
-		}
-		temp = nums[end];
-		nums[end] = nums[pivot];
-		nums[pivot] = temp;
-		return end;
-	}
-
-	/**
-	 * https://leetcode.com/problems/kth-largest-element-in-an-array/
-	 * 
-	 * @param nums
-	 * @param k
-	 * @return
-	 */
-	public int findKthLargestQuickSelect(int[] nums, int k) {
-		int searchIdx = nums.length - k;
-		int start = 0, end = nums.length - 1;
-		while (start < end) {
-			int pivotIdx = partition(nums, start, end);
-			if (pivotIdx == searchIdx) {
-				return nums[pivotIdx];
-			} else if (pivotIdx > searchIdx) {
-				end = pivotIdx - 1;
-			} else {
-				start = pivotIdx + 1;
-			}
-		}
-		return nums[start];
-	}
 
 	private int partition(int[] nums, int left, int right) {
 		int pivot = nums[left], low = left, high = right;
@@ -494,18 +338,6 @@ public class ArraySolution {
 		arr[j] = temp;
 	}
 
-	/**
-	 * 
-	 * @param nums
-	 */
-	public void nextPermutation(int[] nums) {
-		int pivot = indexOfLastPeak(nums) - 1;
-		if (pivot != -1) {
-			int nextPrefix = lastIndexOfGreater(nums, nums[pivot]);
-			swap(nums, pivot, nextPrefix);
-		}
-		reverse(nums, pivot + 1, nums.length - 1);
-	}
 
 	private int indexOfLastPeak(int[] nums) {
 		for (int i = nums.length - 1; 0 < i; --i) {

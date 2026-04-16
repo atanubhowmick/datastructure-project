@@ -1,4 +1,4 @@
-package dev.atanu.ds.java.array;
+package dev.atanu.ds.java.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
