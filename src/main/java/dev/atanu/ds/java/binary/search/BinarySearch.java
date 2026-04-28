@@ -21,6 +21,14 @@ public class BinarySearch {
 
 	}
 
+
+	/**
+	 * This is classic approach. Next one is better.
+	 *
+	 * @param arr
+	 * @param target
+	 * @return
+	 */
 	public int search(int[] arr, int target) {
 		int first = 0;
 		int last = arr.length - 1;
@@ -61,6 +69,28 @@ public class BinarySearch {
 		}
 		return arr[first] == target ? first : -1;
 	}
+
+
+	/**
+	 * https://leetcode.com/problems/search-insert-position
+	 *
+	 * @param nums
+	 * @param target
+	 * @return insert position
+	 */
+	public int searchInsert(int[] nums, int target) {
+		int start = 0, end = nums.length - 1;
+		while(start < end) {
+			int mid = (start + end) >>> 1;
+			if(target > nums[mid]) {
+				start = mid + 1;
+			} else {
+				end = mid;
+			}
+		}
+		return target > nums[start] ? start + 1 : start;
+	}
+
 
 	/**
 	 * https://leetcode.com/problems/longest-increasing-subsequence/

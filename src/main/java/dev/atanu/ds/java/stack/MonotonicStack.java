@@ -531,7 +531,7 @@ public class MonotonicStack {
                 result[i] += 1;
             }
 
-            // If stack is not empty then i th person can see one more persont,
+            // If stack is not empty then i th person can see one more person,
             // who is taller than him
             if (!stack.empty()) {
                 result[i] += 1;
