@@ -51,29 +51,32 @@ public class BinarySearch {
 
 	/**
 	 * Without equals condition inside while loop (check below``)
+	 * This is for boundary search
+	 * Could be as well --> int right = arr.length;
 	 *
 	 * @param arr
 	 * @param target
 	 * @return index
 	 */
 	public int search1(int[] arr, int target) {
-		int first = 0;
-		int last = arr.length - 1;
-		while (first < last) {
-			int mid = (first + last) >>> 1;
+		int left = 0;
+		int right = arr.length - 1;
+		while (left < right) {
+			int mid = (left + right) >>> 1;
 			if (target > arr[mid]) {
-				first = mid + 1;
+				left = mid + 1;
 			} else {
-				last = mid;
+				right = mid;
 			}
 		}
-		return arr[first] == target ? first : -1;
+		return arr[left] == target ? left : -1;
 	}
 
 
 	/**
 	 *
 	 * With equals condition inside while loop.
+	 * This approach for exact match.
 	 *
 	 * @param arr
 	 * @param target
