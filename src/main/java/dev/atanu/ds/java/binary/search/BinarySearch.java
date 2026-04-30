@@ -23,34 +23,38 @@ public class BinarySearch {
 
 
 	/**
-	 * This is classic approach. Next one is better.
+	 * This is classic approach.
+	 * I have created two templates to solve all the Binary Search problems.
+	 * Take a look into the templates below.
 	 *
 	 * @param arr
 	 * @param target
-	 * @return
+	 * @return Search result
 	 */
 	public int search(int[] arr, int target) {
-		int first = 0;
-		int last = arr.length - 1;
-		int mid = (first + last) / 2;
+		int start = 0;
+		int end = arr.length - 1;
+		int mid = (start + end) / 2;
 		boolean found = false;
-		while (first <= last) {
+		while (start <= end) {
 			if (target == arr[mid]) {
 				found = true;
 				break;
 			} else if (target < arr[mid]) {
-				last = mid - 1;
-				mid = (first + last) / 2;
+				end = mid - 1;
+				mid = (start + end) / 2;
 			} else {
-				first = mid + 1;
-				mid = (first + last) / 2;
+				start = mid + 1;
+				mid = (start + end) / 2;
 			}
 		}
 		return found ? mid : -1;
 	}
 
 	/**
-	 * Without equals condition inside while loop (check below``)
+	 * Template - 1
+	 * Without equals condition inside while loop
+	 *
 	 * This is for boundary search
 	 * Could be as well --> int right = arr.length;
 	 *
@@ -74,7 +78,7 @@ public class BinarySearch {
 
 
 	/**
-	 *
+	 * Template - 2
 	 * With equals condition inside while loop.
 	 * This approach for exact match.
 	 *
@@ -83,18 +87,18 @@ public class BinarySearch {
 	 * @return index
 	 */
 	public int search2(int[] arr, int target) {
-		int left = 0;
-		int right = arr.length - 1;
+		int start = 0;
+		int end = arr.length - 1;
 
-		while (left <= right) {
-			int mid = left + (right - left) / 2;
+		while (start <= end) {
+			int mid = start + (end - start) / 2;
 
 			if (arr[mid] == target) {
 				return mid;
 			} else if (arr[mid] < target) {
-				left = mid + 1;
+				start = mid + 1;
 			} else {
-				right = mid - 1;
+				end = mid - 1;
 			}
 		}
 
@@ -104,6 +108,7 @@ public class BinarySearch {
 
 	/**
 	 * https://leetcode.com/problems/search-insert-position
+	 * Using Template - 1
 	 *
 	 * @param nums
 	 * @param target
@@ -120,6 +125,44 @@ public class BinarySearch {
 			}
 		}
 		return target > nums[start] ? start + 1 : start;
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array
+	 *
+	 * Using Template - 1
+	 *
+	 * @param nums
+	 * @param target
+	 * @return array
+	 */
+	public int[] searchRange(int[] nums, int target) {
+		if (nums.length == 0) {
+			return new int[] {-1, -1};
+		}
+
+		int first = findPosition(nums, target);
+		if (first == nums.length || nums[first] != target) {
+			return new int[] {-1, -1};
+		}
+
+		int last = findPosition(nums, target + 1) - 1;
+		return new int[] {first, last};
+	}
+
+	private int findPosition(int[] nums, int target) {
+		int left = 0;
+		int right = nums.length;
+		while (left < right) {
+			int mid = left + (right - left) / 2;
+			if (nums[mid] < target) {
+				left = mid + 1;
+			} else {
+				right = mid;
+			}
+		}
+		return left;
 	}
 
 
@@ -160,5 +203,109 @@ public class BinarySearch {
 			}
 		}
 		return start;
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/search-in-rotated-sorted-array
+	 *
+	 * Using Template -2
+	 *
+	 * @param nums
+	 * @param target
+	 * @return
+	 */
+	public int searchInRotatedSortedArray(int[] nums, int target) {
+		int start = 0, end = nums.length - 1;
+
+		while (start <= end) {
+			int mid = start + (end - start) / 2;
+
+			if (nums[mid] == target) {
+				return mid;
+			}
+
+			if (nums[mid] > nums[end]) {
+				// left half is sorted
+				if (nums[start] <= target && target < nums[mid]) {
+					end = mid - 1;
+				} else {
+					start = mid + 1;
+				}
+			} else {
+				// right half is sorted
+				if (nums[mid] < target && target <= nums[end]) {
+					start = mid + 1;
+				} else {
+					end = mid - 1;
+				}
+			}
+		}
+		return -1;
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+	 *
+	 * Using Template -2
+	 * @param nums
+	 * @param target
+	 * @return boolean
+	 */
+	public boolean searchInRotatedSortedArrayII(int[] nums, int target) {
+		int start = 0, end = nums.length - 1;
+
+		while (start <= end) {
+			int mid = start + (end - start) / 2;
+
+			if (nums[mid] == target) {
+				return true;
+			}
+
+			if (nums[mid] > nums[end]) {
+				// left half is sorted
+				if (nums[start] <= target && target < nums[mid]) {
+					end = mid - 1;
+				} else {
+					start = mid + 1;
+				}
+			} else if(nums[mid] < nums[end]) {
+				// right half is sorted
+				if (nums[mid] < target && target <= nums[end]) {
+					start = mid + 1;
+				} else {
+					end = mid - 1;
+				}
+			} else {
+				end--;
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
+	 *
+	 * Using Template-1 - Shrink to minimum position
+	 *
+	 * @param nums
+	 * @return
+	 */
+	public int findMin(int[] nums) {
+		int start = 0;
+		int end = nums.length - 1;
+
+		while(start < end) {
+			int mid = start + (end - start)/2;
+			if(nums[mid] > nums[end]) {
+				start = mid + 1;
+			} else {
+				end = mid ;
+			}
+		}
+		return nums[start];
+		// return nums[end];  - would also work
 	}
 }
