@@ -1,4 +1,4 @@
-package dev.atanu.ds.java.array.sort;
+package dev.atanu.ds.java.sort;
 
 import java.util.Arrays;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package dev.atanu.ds.java.array.design;
+package dev.atanu.ds.java.cache;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;

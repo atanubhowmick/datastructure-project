@@ -22,49 +22,6 @@ public class ArraySolution {
 		System.out.println(solution.canFinish(3, new int[][] {{1,0},{1,2},{0,1}}));
 	}
 
-	/**
-	 * https://leetcode.com/problems/next-greater-node-in-linked-list/
-	 * 
-	 * @param head
-	 * @return
-	 */
-	public int[] nextLargerNodes(ListNode head) {
-		List<Integer> list = new ArrayList<>();
-		while (head != null) {
-			list.add(head.val);
-			head = head.next;
-		}
-		int[] arr = new int[list.size()];
-		Stack<Integer> stack = new Stack<>();
-		for (int i = 0; i < list.size(); i++) {
-			while (!stack.isEmpty() && list.get(stack.peek()) < list.get(i)) {
-				int prevIndex = stack.pop();
-				arr[prevIndex] = list.get(i);
-			}
-			stack.push(i);
-		}
-		return arr;
-	}
-
-	/**
-	 * https://leetcode.com/problems/daily-temperatures/
-	 * 
-	 * @param temperatures
-	 * @return
-	 */
-	public int[] dailyTemperatures(int[] temperatures) {
-		int n = temperatures.length;
-		int[] result = new int[n];
-		Stack<Integer> stack = new Stack<>();
-		for (int i = 0; i < n; i++) {
-			while (!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]) {
-				int prevIndex = stack.pop();
-				result[prevIndex] = i - prevIndex;
-			}
-			stack.push(i);
-		}
-		return result;
-	}
 
 	/**
 	 * https://leetcode.com/problems/majority-element-ii/description/
@@ -376,85 +333,6 @@ public class ArraySolution {
 		}
 		return "";
 	}
-
-	/**
-	 * https://leetcode.com/problems/longest-palindrome/
-	 * 
-	 * @param s
-	 * @return
-	 */
-	public String longestPalindrome(String s) {
-		if (s == null || s.isEmpty()) {
-			return "";
-		}
-
-		int start = 0;
-		int end = 0;
-
-		for (int i = 0; i < s.length(); i++) {
-			int len1 = expandFromMiddle(s, i, i);
-			int len2 = expandFromMiddle(s, i, i + 1);
-			int len = Math.max(len1, len2);
-			if (len > end - start) {
-				start = i - ((len - 1) / 2);
-				end = i + (len / 2);
-			}
-		}
-		return s.substring(start, end + 1);
-	}
-
-	private int expandFromMiddle(String s, int left, int right) {
-		if (s == null || left > right) {
-			return 0;
-		}
-
-		while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
-			left--;
-			right++;
-		}
-		return right - left - 1;
-	}
-	
-	
-	/**
-	 * https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/
-	 * 
-	 * @param words
-	 * @return
-	 */
-	public int longestPalindrome(String[] words) {
-        int len = 0;
-        Map<String, Integer> map = new HashMap<>();
-        for(String word : words) {
-            String key = new StringBuffer(word).reverse().toString();
-            int count = map.getOrDefault(key, 0);
-            if(word.charAt(0) == word.charAt(1)) {
-               map.put(word, count + 1);
-            } else if(count > 0) {
-                len += 4;
-                map.put(key, count - 1);
-            } else {
-                map.put(word, map.getOrDefault(word, 0) + 1);
-            }
-        }
-
-        boolean hasOddCount = false;
-
-        for(Map.Entry<String, Integer> entry : map.entrySet()) {
-            String word = entry.getKey();
-            int count  = entry.getValue();
-            if(word.charAt(0) == word.charAt(1)) {
-                if(count % 2 == 0) {
-                    len += count * 2;
-                } else {
-                    len += (count - 1) * 2;
-                    hasOddCount = true;
-                }
-            }
-        }
-
-        return len + (hasOddCount ? 2 : 0);
-    }
 	
 
 	/**

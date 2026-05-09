@@ -36,7 +36,6 @@ public class SlidingWindow {
 		int len = n + 1;
 		for (int j = 0; j < n; j++) {
 			target -= nums[j];
-
 			while (target <= 0) {
 				len = Math.min(len, j - i + 1);
 				target += nums[i++];

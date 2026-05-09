@@ -1,5 +1,9 @@
 package dev.atanu.ds.java.linkedlist;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class LinkedListSolution {
 
 	public static void main(String[] args) {
@@ -88,5 +92,30 @@ public class LinkedListSolution {
 		
 		slow.next = slow.next.next;
 		return tempHead.next;
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/next-greater-node-in-linked-list/
+	 *
+	 * @param head
+	 * @return
+	 */
+	public int[] nextLargerNodes(ListNode head) {
+		List<Integer> list = new ArrayList<>();
+		while (head != null) {
+			list.add(head.val);
+			head = head.next;
+		}
+		int[] arr = new int[list.size()];
+		Stack<Integer> stack = new Stack<>();
+		for (int i = 0; i < list.size(); i++) {
+			while (!stack.isEmpty() && list.get(stack.peek()) < list.get(i)) {
+				int prevIndex = stack.pop();
+				arr[prevIndex] = list.get(i);
+			}
+			stack.push(i);
+		}
+		return arr;
 	}
 }
