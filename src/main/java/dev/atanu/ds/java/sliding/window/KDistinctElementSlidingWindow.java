@@ -27,67 +27,31 @@ public class KDistinctElementSlidingWindow {
      * @return
      */
     public int kDistinctElement(int[] nums, int k) {
-        int start = 0, end = 0;
+        int left = 0, right = 0;
         int res = 0;
 
         // HashMp that hold the num and it's occurrence count
         Map<Integer, Integer> map = new HashMap<>();
 
-        while (end < nums.length) {
-            int right = nums[end];
-            map.put(right, map.getOrDefault(right, 0) + 1);
+        while (right < nums.length) {
+            int last = nums[right];
+            map.put(last, map.getOrDefault(last, 0) + 1);
 
             while (map.size() > k) {
-                int left = nums[start];
-                map.put(left, map.get(left) - 1);
-                if (map.get(left) == 0) {
-                    map.remove(left);
+                int first = nums[left];
+                map.put(first, map.get(first) - 1);
+                if (map.get(first) == 0) {
+                    map.remove(first);
                 }
-                start++;
+                left++;
             }
 
-            res = Math.max(res, end - start + 1);
-            end++;
+            res = Math.max(res, right - left + 1);
+            right++;
         }
         return res;
     }
 
-    /**
-     * Using two variable as number of distinct element is 2.
-     * https://leetcode.com/problems/fruit-into-baskets/
-     *
-     * @param fruits
-     * @return
-     */
-    public int totalFruit(int[] fruits) {
-        int lastFruit = -1;
-        int secondLastFruit = -1;
-
-        int lastFruitCount = 0;
-
-        int currMax = 0;
-        int max = 0;
-
-        for (int i = 0; i < fruits.length; i++) {
-            int fruit = fruits[i];
-            if (fruit == lastFruit) {
-                lastFruitCount++;
-                currMax++;
-            } else if (fruit == secondLastFruit) {
-                currMax++;
-            } else {
-                currMax = lastFruitCount + 1;
-                lastFruitCount = 1;
-
-                secondLastFruit = lastFruit;
-                lastFruit = fruit;
-            }
-
-            max = Math.max(max, currMax);
-        }
-
-        return max;
-    }
 
     /**
      * Using HashMap
@@ -96,28 +60,28 @@ public class KDistinctElementSlidingWindow {
      * @param fruits
      * @return
      */
-    public int totalFruit1(int[] fruits) {
-        int start = 0, end = 0, k = 2;
+    public int totalFruit(int[] fruits) {
+        int left = 0, right = 0, k = 2;
         int res = 0;
 
         // HashMp that hold the num and it's occurrence count
         Map<Integer, Integer> map = new HashMap<>();
 
-        while (end < fruits.length) {
-            int right = fruits[end];
-            map.put(right, map.getOrDefault(right, 0) + 1);
+        while (right < fruits.length) {
+            int last = fruits[right];
+            map.put(last, map.getOrDefault(last, 0) + 1);
 
             while (map.size() > k) {
-                int left = fruits[start];
-                map.put(left, map.get(left) - 1);
-                if (map.get(left) == 0) {
-                    map.remove(left);
+                int first = fruits[left];
+                map.put(first, map.get(first) - 1);
+                if (map.get(first) == 0) {
+                    map.remove(first);
                 }
-                start++;
+                left++;
             }
 
-            res = Math.max(res, end - start + 1);
-            end++;
+            res = Math.max(res, right - left + 1);
+            right++;
         }
         return res;
     }

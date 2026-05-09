@@ -15,47 +15,47 @@ public class AllSubArrayCountSlidingWindow {
      * @return
      */
     public int numberOfSubarrays(int[] nums, int k) {
-        int start = 0, end = 0;
+        int left = 0, right = 0;
         int count = 0, res = 0;
 
-        while (end < nums.length) {
-            if (nums[end] % 2 == 1) {
+        while (right < nums.length) {
+            if (nums[right] % 2 == 1) {
                 k--;
                 count = 0;
             }
 
             while (k == 0) {
-                if (nums[start] % 2 == 1) {
+                if (nums[left] % 2 == 1) {
                     k++;
                 }
                 count++;
-                start++;
+                left++;
             }
             res += count;
-            end++;
+            right++;
         }
         return res;
     }
 
     public int numberOfSubarrays1(int[] nums, int k) {
-        int start = 0, end = 0;
+        int left = 0, right = 0;
         int oddCount = 0, count = 0, res = 0;
 
-        while (end < nums.length) {
-            if (nums[end] % 2 == 1) {
+        while (right < nums.length) {
+            if (nums[right] % 2 == 1) {
                 oddCount++;
                 count = 0;
             }
 
             while(oddCount == k) {
                 count++;
-                if (nums[start] % 2 == 1) {
+                if (nums[left] % 2 == 1) {
                     oddCount--;
                 }
-                start++;
+                left++;
             }
             res += count;
-            end++;
+            right++;
         }
         return res;
     }
