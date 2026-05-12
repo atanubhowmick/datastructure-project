@@ -3,9 +3,6 @@
  */
 package dev.atanu.ds.java.array;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * https://leetcode.com/discuss/study-guide/3722472/mastering-sliding-window-technique-a-comprehensive-guide
  * 
@@ -43,53 +40,7 @@ public class SlidingWindow {
 		}
 		return len == n + 1 ? 0 : len;
 	}
-	
 
-	/**
-	 * https://leetcode.com/problems/max-consecutive-ones/
-	 * 
-	 * @param nums
-	 * @return
-	 */
-	public int findMaxConsecutiveOnes(int[] nums) {
-		int count = 0, maxCount = 0;
-
-		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] == 1) {
-				count += 1;
-				maxCount = Math.max(count, maxCount);
-			} else {
-				count = 0;
-			}
-		}
-
-		return maxCount;
-	}
-
-	
-	/**
-	 * https://leetcode.com/problems/max-consecutive-ones-iii/
-	 * 
-	 * @param nums
-	 * @param k
-	 * @return
-	 */
-	public int longestOnes(int[] nums, int k) {
-		int i = 0, j;
-		for (j = 0; j < nums.length; ++j) {
-			if (nums[j] == 0) {
-				k--;
-			}
-			if (k < 0) {
-				if (nums[i] == 0) {
-					k++;
-				}
-				i++;
-			}
-		}
-		return j - i;
-	}
-	
 
 	/**
 	 * https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/
@@ -132,27 +83,6 @@ public class SlidingWindow {
 		}
 
 		return count;
-	}
-	
-
-	/**
-	 * https://leetcode.com/problems/longest-substring-without-repeating-characters/
-	 * 
-	 * @param s
-	 * @return
-	 */
-	public int lengthOfLongestSubstring(String s) {
-		int maxLen = 0, i = 0;
-		Map<Character, Integer> map = new HashMap<>();
-		for (int j = 0; j < s.length(); j++) {
-			char ch = s.charAt(j);
-			if (map.containsKey(ch)) {
-				i = Math.max(i, map.get(ch) + 1);
-			}
-			maxLen = Math.max(j - i + 1, maxLen);
-			map.put(ch, j);
-		}
-		return maxLen;
 	}
 	
 

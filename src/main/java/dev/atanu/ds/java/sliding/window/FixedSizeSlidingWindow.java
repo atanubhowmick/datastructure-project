@@ -2,6 +2,7 @@ package dev.atanu.ds.java.sliding.window;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -181,5 +182,17 @@ public class FixedSizeSlidingWindow {
             }
         }
         return result;
+    }
+
+
+    /**
+     * https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+     *
+     * @param s
+     * @param words
+     * @return
+     */
+    public List<Integer> findSubstring(String s, String[] words) {
+        return null;
     }
 }
