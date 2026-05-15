@@ -13,10 +13,10 @@ import java.util.HashSet;
  * C. Variable Size Window — Smallest/Minimum
  * D. Sliding Window + HashMap/Frequency Count
  */
-public class DynamicSizeSlidingWindow {
+public class DynamicSizeSlidingWindowMaximum {
 
     public static void main(String[] args) {
-        DynamicSizeSlidingWindow solution = new DynamicSizeSlidingWindow();
+        DynamicSizeSlidingWindowMaximum solution = new DynamicSizeSlidingWindowMaximum();
         System.out.println(solution.lengthOfLongestSubstring("pwwkew"));
     }
 

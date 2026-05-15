@@ -19,50 +19,6 @@ public class SlidingWindow {
 		int[] arr = new int[] { 0, 1, 1, 1, 0, 1, 1, 0, 1 };
 		System.out.println(slidingWindow.characterReplacement("KKKKKKJJJJ", 2));
 	}
-	
-
-	/**
-	 * https://leetcode.com/problems/minimum-size-subarray-sum/
-	 * 
-	 * @param target
-	 * @param nums
-	 * @return
-	 */
-	public int minSubArrayLen(int target, int[] nums) {
-		int i = 0, n = nums.length;
-		int len = n + 1;
-		for (int j = 0; j < n; j++) {
-			target -= nums[j];
-			while (target <= 0) {
-				len = Math.min(len, j - i + 1);
-				target += nums[i++];
-			}
-		}
-		return len == n + 1 ? 0 : len;
-	}
-
-
-	/**
-	 * https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/
-	 * 
-	 * @param nums
-	 * @return
-	 */
-	public int longestSubarray(int[] nums) {
-		int i = 0, j, k = 1;
-		for (j = 0; j < nums.length; ++j) {
-			if (nums[j] == 0) {
-				k--;
-			}
-			if (k < 0) {
-				if (nums[i] == 0) {
-					k++;
-				}
-				i++;
-			}
-		}
-		return j - i - 1;
-	}
 
 	
 	/**

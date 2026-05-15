@@ -23,6 +23,46 @@ public class FixedSizeSlidingWindow {
 
 
     /**
+     * https://leetcode.com/problems/minimum-recolors-to-get-k-consecutive-black-blocks/
+     *
+     * @param blocks
+     * @param k
+     * @return
+     */
+    public int minimumRecolors(String blocks, int k) {
+        int start = 0, end = 0;
+        int white = 0;
+
+        while(end < k) {
+            if(blocks.charAt(end) == 'W') {
+                white++;
+            }
+            end++;
+        }
+
+        int minSwap = white;
+
+        while(end < blocks.length()) {
+            if(blocks.charAt(end) == 'W') {
+                white++;
+            }
+            int len = end - start + 1;
+            if(len > k) {
+                if(blocks.charAt(start) == 'W') {
+                    white--;
+                }
+                start++;
+            }
+
+            minSwap = Math.min(minSwap, white);
+            end++;
+        }
+
+        return minSwap;
+    }
+
+
+    /**
      * https://leetcode.com/problems/maximum-average-subarray-i/
      *
      * @param nums
