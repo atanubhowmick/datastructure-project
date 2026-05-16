@@ -1,7 +1,9 @@
 package dev.atanu.ds.java.sliding.window;
 
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * https://leetcode.com/discuss/study-guide/3722472/mastering-sliding-window-technique-a-comprehensive-guide
@@ -187,6 +189,44 @@ public class DynamicSizeSlidingWindowMaximum {
             end++;
         }
         return res;
+    }
+
+
+    /**
+     * https://leetcode.com/problems/sliding-window-maximum/
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        int[] result = new int[n-k+1];
+        int idx = 0;
+
+        // To store index
+        Deque<Integer> deque = new LinkedList<>();
+
+        for (int i = 0; i < n; i++) {
+            // remove indices that are out of bound
+            if (!deque.isEmpty() && deque.peek() < i - k + 1) {
+                deque.poll();
+            }
+
+            // remove indices whose corresponding values are less than nums[i]
+            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
+            }
+
+            // add nums[i]
+            deque.offer(i);
+
+            // add to result
+            if (i >= k - 1) {
+                result[idx++] = nums[deque.peek()];
+            }
+        }
+        return result;
     }
 
 }
