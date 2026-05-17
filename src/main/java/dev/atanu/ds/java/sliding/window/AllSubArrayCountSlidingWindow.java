@@ -1,5 +1,10 @@
 package dev.atanu.ds.java.sliding.window;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class AllSubArrayCountSlidingWindow {
 
     public static void main(String[] args) {
@@ -59,4 +64,44 @@ public class AllSubArrayCountSlidingWindow {
         }
         return res;
     }
+
+
+    /**
+     * https://leetcode.com/problems/count-complete-subarrays-in-an-array/
+     *
+     * @param nums
+     * @return
+     */
+    public int countCompleteSubarrays(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int num: nums) {
+            set.add(num);
+        }
+
+        int start = 0, end = 0, result = 0;
+        int distinct = set.size();
+
+        Map<Integer, Integer> map = new HashMap<>();
+
+        while(end < nums.length) {
+            int num = nums[end];
+            map.put(num, map.getOrDefault(num, 0) + 1);
+            while(map.size() == distinct) {
+
+                // As all distinct elements are here.
+                // Rest of the array will also satisfy with duplicate elements
+                result += nums.length - end;
+
+                map.put(nums[start], map.get(nums[start]) - 1);
+                if(map.get(nums[start]) == 0) {
+                    map.remove(nums[start]);
+                }
+                start++;
+            }
+            end++;
+        }
+        return result;
+    }
+
+
 }

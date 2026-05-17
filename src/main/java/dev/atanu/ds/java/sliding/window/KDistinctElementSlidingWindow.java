@@ -20,7 +20,7 @@ public class KDistinctElementSlidingWindow {
      *     <li>https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
      *     <li>https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
      *     <li>https://leetcode.com/problems/count-number-of-nice-subarrays/
-     *     <li>https://leetcode.com/problems/fruit-into-baskets/
+     *     <li>https://leetcode.com/problems/subarrays-with-k-different-integers/
      *     <li>https://leetcode.com/problems/fruit-into-baskets/
      * </ul>
      *
@@ -119,5 +119,41 @@ public class KDistinctElementSlidingWindow {
         return res;
     }
 
+
+    /**
+     * https://leetcode.com/problems/subarrays-with-k-different-integers/
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        return atMostK(nums, k) - atMostK(nums, k - 1);
+    }
+
+    private int atMostK(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int start = 0, end = 0, result = 0;
+
+        while(end < nums.length) {
+            int num = nums[end];
+            if(map.getOrDefault(num, 0) == 0) {
+                k--;
+            }
+            map.put(num, map.getOrDefault(num, 0) + 1);
+
+            while(k < 0 ) {
+                map.put(nums[start], map.get(nums[start]) - 1);
+                if(map.get(nums[start]) == 0) {
+                    k++;
+                }
+                start++;
+            }
+            result += (end -start + 1);
+            end++;
+        }
+
+        return result;
+    }
 
 }
