@@ -116,6 +116,7 @@ public class BinaryTreeSolution {
     }
 
 	/**
+	 * https://leetcode.com/problems/binary-tree-postorder-traversal/
 	 * 
 	 * @param node
 	 * @param list
@@ -159,7 +160,99 @@ public class BinaryTreeSolution {
 	}
 	
 	//-----------------------------------------
-	
+
+
+	/**
+	 * https://leetcode.com/problems/same-tree/
+	 *
+	 * @param p
+	 * @param q
+	 * @return
+	 */
+	public boolean isSameTree(TreeNode p, TreeNode q) {
+		if(p == null && q == null) {
+			return true;
+		}
+
+		if(p == null || q == null) {
+			return false;
+		}
+
+		if(p.val != q.val) {
+			return false;
+		}
+		return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/symmetric-tree/
+	 *
+	 * @param root
+	 * @return
+	 */
+	public boolean isSymmetric(TreeNode root) {
+		return isSymmetric(root.left, root.right);
+	}
+
+	private boolean isSymmetric(TreeNode left, TreeNode right) {
+		if(left == null && right == null) {
+			return true;
+		}
+
+		if(left == null || right == null) {
+			return false;
+		}
+
+		if(left.val != right.val) {
+			return false;
+		}
+
+		return isSymmetric(left.left, right.right)
+				&& isSymmetric(left.right, right.left);
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/maximum-depth-of-binary-tree/
+	 *
+	 * @param root
+	 * @return
+	 */
+	public int maxDepth(TreeNode root) {
+		if(root == null) {
+			return 0;
+		}
+
+		return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+	}
+
+
+	/**
+	 * https://leetcode.com/problems/balanced-binary-tree
+	 *
+	 * @param root
+	 * @return
+	 */
+	public boolean isBalanced(TreeNode root) {
+		if (root == null) {
+			return true;
+		}
+		int leftHeight = height(root.left);
+		int rightHeight = height(root.right);
+
+		return Math.abs(leftHeight - rightHeight) <= 1
+				&& isBalanced(root.left) && isBalanced(root.right);
+	}
+
+	private int height(TreeNode node) {
+		if(node == null) {
+			return 0;
+		}
+		return 1 + Math.max(height(node.left), height(node.right));
+	}
+
+
 	private TreeNode head = new TreeNode(0);
     private TreeNode current = head;
 
@@ -211,7 +304,7 @@ public class BinaryTreeSolution {
 	private TreeNode prev = null;
 
 	/**
-	 * {@link https://leetcode.com/problems/flatten-binary-tree-to-linked-list/}
+	 * https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
 	 * https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/36977/My-short-post-order-traversal-Java-solution-for-share
 	 * 
 	 * @param root
@@ -225,26 +318,28 @@ public class BinaryTreeSolution {
 		root.setLeft(null);
 		prev = root;
 	}
-	
-	
+
+
 	/**
 	 * https://leetcode.com/problems/path-sum/
-	 * 
+	 *
 	 * @param root
 	 * @param targetSum
 	 * @return
 	 */
 	public boolean hasPathSum(TreeNode root, int targetSum) {
 		if(root == null) {
-            return false;
-        }
-        
-        if(root.val == targetSum && root.left == null && root.right == null) {
-            return true;
-        }
-        
-        return hasPathSum(root.left, targetSum-root.val)
-                || hasPathSum(root.right, targetSum-root.val);
+			return false;
+		}
+
+		targetSum -= root.val;
+
+		if(targetSum == 0 && root.left == null && root.right == null) {
+			return true;
+		}
+
+		return hasPathSum(root.left, targetSum)
+				|| hasPathSum(root.right, targetSum);
 	}
 
 
@@ -256,26 +351,28 @@ public class BinaryTreeSolution {
 	 * @return List of all the paths matching with the target sum
 	 */
 	public List<List<Integer>> pathSum2(TreeNode root, int targetSum) {
-		List<List<Integer>> list = new ArrayList<>();
-		pathSumHelper(root, targetSum, list, new ArrayList<>());
-		return list;
+		List<List<Integer>> result = new ArrayList<>();
+		pathSumHelper(root, targetSum, new ArrayList<>(), result);
+		return result;
 	}
 
-	private void pathSumHelper(TreeNode node, int targetSum, List<List<Integer>> list, List<Integer> tempList) {
+	private void pathSumHelper(TreeNode node, int targetSum,
+							   List<Integer> tempList, List<List<Integer>> result) {
 		if(node == null) {
 			return;
 		}
 
 		tempList.add(node.val);
+		targetSum -= node.val;
 
-		if(node.left == null && node.right == null && node.val == targetSum) {
-			list.add(new ArrayList<>(tempList));
-		} else {
-			pathSumHelper(node.left, targetSum - node.val, list, tempList);
-			pathSumHelper(node.right, targetSum - node.val, list, tempList);
+		if(targetSum == 0 && node.left == null && node.right == null) {
+			result.add(new ArrayList<>(tempList));
 		}
 
-		tempList.remove(tempList.size()-1);
+		pathSumHelper(node.left, targetSum, tempList, result);
+		pathSumHelper(node.right, targetSum, tempList, result);
+
+		tempList.remove(tempList.size() - 1);
 	}
 	
 
@@ -373,7 +470,7 @@ public class BinaryTreeSolution {
 	}
 
 	/**
-	 * {@link https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/}
+	 * https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/
 	 * 
 	 * @param root
 	 * @return sum

@@ -240,7 +240,7 @@ public class BinarySearchTreeSolution {
 	}
 	
 	/**
-	 * {@link https://leetcode.com/problems/invert-binary-tree/}
+	 * https://leetcode.com/problems/invert-binary-tree/
 	 * 
 	 * @param root
 	 * @return Inverted Tree
@@ -256,6 +256,34 @@ public class BinarySearchTreeSolution {
         root.right = invertTree(left);
         return root;
     }
+
+	/**
+	 * https://leetcode.com/problems/invert-binary-tree/
+	 *
+	 * @param root
+	 * @return
+	 */
+	public TreeNode invertTree1(TreeNode root) {
+		invertTreeHelper(root);
+		return root;
+	}
+
+	private void invertTreeHelper(TreeNode node) {
+		if(node == null) {
+			return;
+		}
+
+		if(node.left == null && node.right == null) {
+			return;
+		}
+
+		TreeNode left = node.left;
+		node.left = node.right;
+		node.right = left;
+
+		invertTreeHelper(node.left);
+		invertTreeHelper(node.right);
+	}
 	
 	/**
 	 * {@link https://leetcode.com/problems/binary-tree-right-side-view/}
