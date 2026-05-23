@@ -532,6 +532,33 @@ public class BinaryTreeSolution {
 		sumEvenGrandparent(node.right, evenParent, node.val % 2 == 0, arr);
 	}
 
+
+	int max = 0;
+
+	/**
+	 * https://leetcode.com/problems/diameter-of-binary-tree/
+	 *
+	 * @param root
+	 * @return
+	 */
+	public int diameterOfBinaryTree(TreeNode root) {
+		postOrderWithCount(root);
+		return max;
+	}
+
+	private int postOrderWithCount(TreeNode node) {
+		if(node == null) {
+			return 0;
+		}
+
+		int leftCount = postOrderWithCount(node.left);
+		int rightCount = postOrderWithCount(node.right);
+
+		max = Math.max(max, leftCount + rightCount);
+		return 1 + Math.max(leftCount, rightCount);
+	}
+
+
 	/**
 	 * https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
 	 * 

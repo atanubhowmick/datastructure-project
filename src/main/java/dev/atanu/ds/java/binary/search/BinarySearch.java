@@ -308,4 +308,43 @@ public class BinarySearch {
 		return nums[start];
 		// return nums[end];  - would also work
 	}
+
+
+	/**
+	 * https://leetcode.com/problems/koko-eating-bananas
+	 *
+	 * @param piles
+	 * @param h
+	 * @return
+	 */
+	public int minEatingSpeed(int[] piles, int h) {
+		int max = 0;
+		for(int pile : piles) {
+			max = Math.max(max, pile);
+		}
+
+		int left = 1, right = max;
+
+		while(left <= right) {
+			int mid = left + (right - left) / 2;
+			if(canEatInTime(piles, mid, h)) {
+				right = mid - 1;
+			} else {
+				left = mid + 1;
+			}
+		}
+		return left;
+	}
+
+	private boolean canEatInTime(int piles[], int k, int h) {
+		long hours = 0;
+		for(int pile : piles) {
+			int div = pile / k;
+			hours += div;
+			if(pile % k != 0) {
+				hours++;
+			}
+		}
+		return hours <= h;
+	}
 }
