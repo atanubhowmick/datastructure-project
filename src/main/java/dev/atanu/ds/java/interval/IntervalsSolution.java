@@ -79,4 +79,45 @@ public class IntervalsSolution {
 
         return result.toArray(new int[result.size()][]);
     }
+
+
+    /**
+     * https://leetcode.com/problems/non-overlapping-intervals/
+     *
+     * @param intervals - intervals
+     * @return count
+     */
+    public int eraseOverlapIntervals(int[][] intervals) {
+        int n = intervals.length;
+
+        // Most important - sort based on end of the intervals.
+        // This will result minimum number of element to remove.
+        PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        for(int[] interval : intervals) {
+            queue.offer(interval);
+        }
+
+        int[] prev = queue.poll();
+        int count = 1;
+        while(!queue.isEmpty()) {
+            int[] current = queue.poll();
+            if(prev[1] <= current[0]) {
+                count++;
+                prev = current;
+            }
+        }
+        return n - count;
+    }
+
+
+    /**
+     * https://leetcode.com/problems/determine-if-two-events-have-conflict/
+     * @param event1 - event1
+     * @param event2 - event2
+     * @return boolean
+     */
+    public boolean haveConflict(String[] event1, String[] event2) {
+        return event2[0].compareTo(event1[1]) <= 0
+                && event1[0].compareTo(event2[1]) <= 0;
+    }
 }
