@@ -120,4 +120,64 @@ public class IntervalsSolution {
         return event2[0].compareTo(event1[1]) <= 0
                 && event1[0].compareTo(event2[1]) <= 0;
     }
+
+
+    /**
+     * https://leetcode.com/problems/remove-covered-intervals/
+     *
+     * @param intervals
+     * @return
+     */
+    public int removeCoveredIntervals(int[][] intervals) {
+        PriorityQueue<int[]> queue = new PriorityQueue<>(
+                (a, b) -> a[0] - b[0]);
+
+        for(int[] interval : intervals) {
+            queue.offer(interval);
+        }
+
+        List<int[]> result = new ArrayList<>();
+        int[] prev = queue.poll();
+        result.add(prev);
+
+        while(!queue.isEmpty()) {
+            int[] current = queue.poll();
+            if(current[0] >= prev[0] && current[1] <= prev[1]) {
+                continue;
+            } else if(current[0] <= prev[0] && current[1] >= prev[1]) {
+                prev[0] = current[0];
+                prev[1] = current[1];
+                continue;
+            }
+            result.add(current);
+            prev = current;
+        }
+
+        return result.size();
+    }
+
+
+    /**
+     * https://leetcode.com/problems/interval-list-intersections/
+     *
+     * @param firstList
+     * @param secondList
+     * @return
+     */
+    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
+        List<int[]> res = new ArrayList<>();
+        int i = 0, j = 0;
+        while (i < firstList.length && j < secondList.length) {
+            int start = Math.max(firstList[i][0], secondList[j][0]);
+            int end = Math.min(firstList[i][1], secondList[j][1]);
+            if (start <= end)
+                res.add(new int[]{start, end});
+            if (firstList[i][1] < secondList[j][1]) {
+                ++i;
+            } else {
+                ++j;
+            }
+        }
+        return res.toArray(new int[res.size()][]);
+    }
 }
