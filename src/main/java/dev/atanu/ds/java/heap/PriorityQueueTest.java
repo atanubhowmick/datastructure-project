@@ -1,4 +1,4 @@
-package dev.atanu.ds.java.queue;
+package dev.atanu.ds.java.heap;
 
 import java.util.PriorityQueue;
 

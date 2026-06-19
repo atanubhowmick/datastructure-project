@@ -62,7 +62,7 @@ public class SlidingWindow {
 				maxLen++;
 			} else {
 				int startIndex = s.charAt(i - maxLen) - 'A';
-				--count[startIndex];
+				count[startIndex]--;
 			}
 		}
 		return maxLen;

@@ -1,10 +1,10 @@
 /**
  * 
  */
-package dev.atanu.ds.java.queue;
+package dev.atanu.ds.java.heap;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 /**
@@ -20,12 +20,74 @@ public class PriorityQueueSolution {
 
 	}
 
+
+    /**
+     * https://leetcode.com/problems/top-k-frequent-elements/
+     *
+     * @param nums - nums
+     * @param k - k
+     * @return array
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for(int num : nums) {
+            freq.put(num, freq.getOrDefault(num, 0) + 1);
+        }
+
+        PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+
+        for(int key : freq.keySet()) {
+            queue.offer(new int[]{key, freq.get(key)});
+            if(queue.size() > k) {
+                queue.poll();
+            }
+        }
+
+        int[] result = new int[queue.size()];
+        int i = 0;
+        while(!queue.isEmpty()) {
+            result[i++] = queue.poll()[0];
+        }
+        return result;
+    }
+
+
+    /**
+     * https://leetcode.com/problems/k-closest-points-to-origin/
+     *
+     * @param points - points
+     * @param k - k
+     * @return points
+     */
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<double[]> queue = new PriorityQueue<>(
+                (p1, p2) -> Double.compare(p2[0], p1[0]));
+        for(int[] point : points) {
+            int x = point[0];
+            int y = point[1];
+            double distance = Math.sqrt((double) point[0]*point[0] + (double) point[1]*point[1]);
+            queue.offer(new double[]{distance, point[0], point[1]});
+            if(queue.size() > k) {
+                queue.poll();
+            }
+        }
+
+        int[][] result = new int[k][2];
+        int i = 0;
+        while(!queue.isEmpty()) {
+            double[] arr = queue.poll();
+            result[i++] = new int[] {(int)arr[1], (int)arr[2]};
+        }
+        return result;
+    }
+
+
     /**
      * https://leetcode.com/problems/kth-largest-element-in-an-array/
      *
-     * @param nums
-     * @param k
-     * @return
+     * @param nums - nums
+     * @param k - k
+     * @return int
      */
     public int findKthLargest(int[] nums, int k) {
         if(nums.length < k) {
@@ -44,9 +106,9 @@ public class PriorityQueueSolution {
     /**
      * https://leetcode.com/problems/kth-largest-element-in-an-array/
      *
-     * @param nums
-     * @param k
-     * @return
+     * @param nums - nums
+     * @param k - k
+     * @return largest
      */
     public int findKthLargestQuickSelect(int[] nums, int k) {
         int searchIdx = nums.length - k;
@@ -90,9 +152,9 @@ public class PriorityQueueSolution {
     /**
      * https://leetcode.com/problems/kth-largest-element-in-an-array/
      *
-     * @param nums
-     * @param k
-     * @return
+     * @param nums - nums
+     * @param k - k
+     * @return kth smallest
      */
     public int findKthSmallest(int[] nums, int k) {
         if(nums.length < k) {
