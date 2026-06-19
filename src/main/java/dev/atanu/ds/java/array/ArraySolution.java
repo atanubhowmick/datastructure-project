@@ -467,23 +467,6 @@ public class ArraySolution {
 		return -1d;
 	}
 
-	/**
-	 * https://leetcode.com/problems/jump-game/
-	 * 
-	 * @param nums
-	 * @return
-	 */
-	public boolean canJump(int[] nums) {
-		int reachableIdx = 0;
-		for (int i = 0; i < nums.length; i++) {
-			if (i > reachableIdx) {
-				return false;
-			}
-			// Greedy algorithm. Take the max jump from the position.
-			reachableIdx = Math.max(reachableIdx, i + nums[i]);
-		}
-		return true;
-	}
 
 	/**
 	 * https://leetcode.com/problems/jump-game-ii/

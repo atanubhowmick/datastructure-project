@@ -39,7 +39,6 @@ public class DynamicSizeSlidingWindowMaximum {
             } else {
                 start = end + 1;
             }
-
             end++;
         }
         return maxCount;
@@ -49,8 +48,8 @@ public class DynamicSizeSlidingWindowMaximum {
     /**
      * https://www.geeksforgeeks.org/dsa/max-number-of-one-ii/
      *
-     * @param nums
-     * @return
+     * @param nums - nums
+     * @return int
      */
     public int findMaxConsecutiveOnesII(int[] nums) {
         int start = 0, end = 0;
@@ -106,8 +105,8 @@ public class DynamicSizeSlidingWindowMaximum {
      * https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/
      *
      * Same framework like above
-     * @param nums
-     * @return
+     * @param nums - nums
+     * @return int
      */
     public int longestSubarray(int[] nums) {
         int start = 0, end = 0;
