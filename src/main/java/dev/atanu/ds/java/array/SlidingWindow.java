@@ -17,7 +17,7 @@ public class SlidingWindow {
 	public static void main(String[] args) {
 		SlidingWindow slidingWindow = new SlidingWindow();
 		int[] arr = new int[] { 0, 1, 1, 1, 0, 1, 1, 0, 1 };
-		System.out.println(slidingWindow.characterReplacement("KKKKKKJJJJ", 2));
+		System.out.println(slidingWindow.numberOfArithmeticSlices(arr));
 	}
 
 	
@@ -39,63 +39,6 @@ public class SlidingWindow {
 		}
 
 		return count;
-	}
-	
-
-	/**
-	 * https://leetcode.com/problems/longest-repeating-character-replacement/
-	 * 
-	 * @param s
-	 * @param k
-	 * @return
-	 */
-	public int characterReplacement(String s, int k) {
-		int maxLen = 0, maxCount = 0;
-		int[] count = new int[26];
-
-		for (int i = 0; i < s.length(); i++) {
-			int endIndex = s.charAt(i) - 'A';
-			++count[endIndex];
-			maxCount = Math.max(maxCount, count[endIndex]);
-
-			if (maxLen - maxCount < k) {
-				maxLen++;
-			} else {
-				int startIndex = s.charAt(i - maxLen) - 'A';
-				count[startIndex]--;
-			}
-		}
-		return maxLen;
-	}
-	
-
-	/**
-	 * Two problems are same.
-	 * 
-	 * https://leetcode.com/problems/longest-repeating-character-replacement/
-	 * https://leetcode.com/problems/maximize-the-confusion-of-an-exam/
-	 * 
-	 * @param answerKey
-	 * @param k
-	 * @return
-	 */
-	public int maxConsecutiveAnswers(String answerKey, int k) {
-		int maxLen = 0, maxCount = 0;
-		int[] count = new int[26];
-
-		for (int i = 0; i < answerKey.length(); i++) {
-			int endIndex = answerKey.charAt(i) - 'A';
-			++count[endIndex];
-			maxCount = Math.max(maxCount, count[endIndex]);
-
-			if (maxLen - maxCount < k) {
-				maxLen++;
-			} else {
-				int startIndex = answerKey.charAt(i - maxLen) - 'A';
-				--count[startIndex];
-			}
-		}
-		return maxLen;
 	}
 
 	

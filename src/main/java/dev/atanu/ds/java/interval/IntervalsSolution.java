@@ -92,21 +92,25 @@ public class IntervalsSolution {
 
         // Most important - sort based on end of the intervals.
         // This will result minimum number of element to remove.
-        PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        PriorityQueue<int[]> queue = new PriorityQueue<>(
+                (a, b) -> a[1] - b[1]);
+
         for(int[] interval : intervals) {
             queue.offer(interval);
         }
 
         int[] prev = queue.poll();
-        int count = 1;
+        int count = 0;
         while(!queue.isEmpty()) {
             int[] current = queue.poll();
-            if(prev[1] <= current[0]) {
+            if(prev[1] > current[0]) {
                 count++;
+            } else {
                 prev = current;
             }
         }
-        return n - count;
+
+        return count;
     }
 
 
