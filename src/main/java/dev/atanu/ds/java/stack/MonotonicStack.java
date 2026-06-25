@@ -302,6 +302,7 @@ public class MonotonicStack {
         int s3 = Integer.MIN_VALUE;
         // We do not need s1, s2
 
+        // Monotonic Decreasing stack from right
         Stack<Integer> stack = new Stack<>();
         for(int i = nums.length - 1; i >= 0; i--) {
             if(nums[i] < s3) {

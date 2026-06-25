@@ -1,4 +1,4 @@
-package dev.atanu.ds.java.graph;
+package dev.atanu.ds.java.graph.word.ladder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,11 +9,15 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class GraphSolution {
+public class WordLadder {
 
 	public static void main(String[] args) {
-		GraphSolution solution = new GraphSolution();
-		char[][] grid = new char[][] { { '1', '1', '1' }, { '0', '1', '0' }, { '1', '1', '1' } };
+		WordLadder solution = new WordLadder();
+		char[][] grid = new char[][] {
+				{ '1', '1', '1' },
+				{ '0', '1', '0' },
+				{ '1', '1', '1' }
+		};
 		int count = solution.numIslands(grid);
 		System.out.println(count);
 	}
@@ -62,6 +66,7 @@ public class GraphSolution {
 		}
 		return 0;
 	}
+
 
 	/**
 	 * https://leetcode.com/problems/word-ladder-ii/
@@ -144,6 +149,7 @@ public class GraphSolution {
 			}
 		}
 	}
+
 
 	/**
 	 * https://leetcode.com/problems/number-of-islands/
