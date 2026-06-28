@@ -8,6 +8,7 @@ public class GreedySolution {
     public static void main(String[] args) {
         GreedySolution solution = new GreedySolution();
         System.out.println(solution.canJump(new int[] {2, 3, 1, 2, 0, 2, 1}));
+        System.out.println(solution.monotoneIncreasingDigits(4321));
     }
 
     /**
@@ -132,5 +133,36 @@ public class GreedySolution {
             }
         }
         return true;
+    }
+
+
+    /**
+     * https://leetcode.com/problems/monotone-increasing-digits/
+     *
+     * @param n - number
+     * @return int
+     */
+    public int monotoneIncreasingDigits(int n) {
+        // 1. Convert the given integer to character array
+        char[] ch = String.valueOf(n).toCharArray();
+
+        // 2. Create a integer mark variable and initialize it to the length of the character array
+        int mark = ch.length;
+
+        // 3. Iterate from the end of the array to the beginning of the array.
+        // Everytime current digit less then previous digit, reduce the previous digit by 1 and set that digit as the mark
+        for(int i = ch.length - 1; i > 0; i--) {
+            if(ch[i - 1] > ch[i]){
+                mark = i - 1;
+                ch[i - 1]--;
+            }
+        }
+
+        // 4. Set all digits after mark to 9 as we want the highest number.
+        // In step 3 we made sure that all digits before mark are in increasing order
+        for(int i = mark + 1; i < ch.length; i++) {
+            ch[i] = '9';
+        }
+        return Integer.parseInt(new String(ch));
     }
 }
