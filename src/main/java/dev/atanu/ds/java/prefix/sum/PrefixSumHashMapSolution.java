@@ -1,6 +1,5 @@
 package dev.atanu.ds.java.prefix.sum;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,7 +66,7 @@ public class PrefixSumHashMapSolution {
 
 
     /**
-     * https://leetcode.com/problems/continuous-subarray-sum/
+     * https://leetcode.com/problems/subarray-sums-divisible-by-k/
      *
      * @param nums - nums
      * @param k - k

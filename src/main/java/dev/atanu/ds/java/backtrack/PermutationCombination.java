@@ -71,7 +71,7 @@ public class PermutationCombination {
 	 * <br>
 	 * Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 	 *
-	 * @param nums
+	 * @param nums - nums
 	 * @return List of permutations
 	 */
 	public List<List<Integer>> permute(int[] nums) {
@@ -232,8 +232,8 @@ public class PermutationCombination {
     /**
 	 * https://leetcode.com/problems/permutations-ii/
 	 * 
-	 * @param nums
-	 * @return
+	 * @param nums - nums
+	 * @return permutations
 	 */
 	public List<List<Integer>> permuteWithDuplicate(int[] nums) {
 		List<List<Integer>> list = new ArrayList<>();

@@ -20,7 +20,6 @@ public class AccountMergeSolution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
         Map<String, String> emailToName = new HashMap<>();
         Map<String, String> parents = new HashMap<>();
-        Map<String, TreeSet<String>> unions = new HashMap<>();
 
         for (List<String> acc : accounts) {
             String name = acc.get(0);
@@ -45,19 +44,8 @@ public class AccountMergeSolution {
             }
         }
 
-        for(List<String> acc : accounts) {
-            String firstEmail = acc.get(1);
-            String parent = find(firstEmail, parents);
-
-            // Insert / Update to union
-            if (!unions.containsKey(parent)) {
-                unions.put(parent, new TreeSet<>());
-            }
-
-            for (int i = 1; i < acc.size(); i++) {
-                unions.get(parent).add(acc.get(i));
-            }
-        }
+        // Create the union
+        Map<String, TreeSet<String>> unions = union(accounts, parents);
 
         List<List<String>> result = new ArrayList<>();
         for (String parent : unions.keySet()) {
@@ -72,5 +60,24 @@ public class AccountMergeSolution {
 
     private String find(String email, Map<String, String> parents) {
         return parents.get(email).equals(email) ? email : find(parents.get(email), parents);
+    }
+
+    private Map<String, TreeSet<String>> union(List<List<String>> accounts,
+                                               Map<String, String> parents) {
+        Map<String, TreeSet<String>> unions = new HashMap<>();
+        for(List<String> acc : accounts) {
+            String firstEmail = acc.get(1);
+            String parent = find(firstEmail, parents);
+
+            // Insert / Update to union
+            if (!unions.containsKey(parent)) {
+                unions.put(parent, new TreeSet<>());
+            }
+
+            for (int i = 1; i < acc.size(); i++) {
+                unions.get(parent).add(acc.get(i));
+            }
+        }
+        return unions;
     }
 }
