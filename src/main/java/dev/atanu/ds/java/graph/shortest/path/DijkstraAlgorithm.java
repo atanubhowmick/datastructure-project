@@ -73,12 +73,12 @@ public class DijkstraAlgorithm {
             }
 
             // Get connected nodes from current node
-            List<int[]> nextNodes = graph.get(u);
+            List<int[]> neighbours = graph.get(u);
 
             // Explore all adjacent vertices
-            for (int[] p : nextNodes) {
-                int v = p[0];
-                int w = p[1];
+            for (int[] next : neighbours) {
+                int v = next[0];
+                int w = next[1];
 
                 // If we found a shorter path to v through u, update it
                 if (distance[u] + w < distance[v]) {
