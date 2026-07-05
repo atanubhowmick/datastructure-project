@@ -3,10 +3,14 @@ package dev.atanu.ds.java.graph.bfs;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class GraphBfsSolution {
+/**
+ * https://leetcode.com/problems/number-of-islands/
+ *
+ */
+public class NumberOfIslandsBFS {
 
     public static void main(String[] args) {
-        GraphBfsSolution solution = new GraphBfsSolution();
+        NumberOfIslandsBFS solution = new NumberOfIslandsBFS();
         char[][] grid = {
                 {'1', '1', '1', '1', '0'},
                 {'1', '1', '0', '1', '0'},
@@ -18,8 +22,7 @@ public class GraphBfsSolution {
     }
 
     /**
-     * Check of BFS Solution as well. DFS is the Best suitable.
-     * https://leetcode.com/problems/number-of-islands/
+     * Check of DFS Solution as well. DFS is the Best suitable
      *
      * @param grid - grid
      * @return count

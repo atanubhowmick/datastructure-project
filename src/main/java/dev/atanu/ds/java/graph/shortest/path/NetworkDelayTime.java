@@ -13,7 +13,11 @@ public class NetworkDelayTime {
 
     public static void main(String[] args) {
         NetworkDelayTime networkDelayTime = new NetworkDelayTime();
-        int[][] network = new int[][] {{1,2,1},{2,3,7},{1,3,4},{2,1,2}};
+        int[][] network = new int[][] {
+                {1, 2, 1},
+                {2, 3, 7},
+                {1, 3, 4},
+                {2, 1, 2}};
         System.out.println(networkDelayTime.networkDelayTime(network, 4, 1));
     }
 
@@ -36,7 +40,7 @@ public class NetworkDelayTime {
         PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> (a[0] - b[0]));
         queue.offer(new int[]{0, k});
 
-        // Can use set also here
+        // Can also use set here
         boolean[] visited = new boolean[n + 1];
         int res = 0;
 
