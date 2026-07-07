@@ -1,5 +1,6 @@
 package dev.atanu.ds.java.greedy;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -164,5 +165,60 @@ public class GreedySolution {
             ch[i] = '9';
         }
         return Integer.parseInt(new String(ch));
+    }
+
+    /**
+     * https://leetcode.com/problems/assign-cookies/
+     *
+     * Greedy with 2 pointers
+     * Time Complexity: O(n log n + m log m)
+     * Space Complexity: O(1)
+     *
+     * @param g
+     * @param s
+     * @return
+     */
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        int i = 0;
+        int j = 0;
+
+        while (i < g.length && j < s.length) {
+            if (s[j] >= g[i]) {
+                i++;
+            }
+            j++;
+        }
+
+        return i;
+    }
+
+    /**
+     * https://leetcode.com/problems/apple-redistribution-into-boxes/
+     *
+     * @param apple
+     * @param capacity
+     * @return
+     */
+    public int minimumBoxes(int[] apple, int[] capacity) {
+        int total = 0;
+        for (int a : apple) {
+            total += a;
+        }
+
+        Arrays.sort(capacity);
+
+        int result = 0;
+        for (int i = capacity.length - 1; i >= 0; i--) {
+            int val = total - capacity[i];
+            result++;
+            total -= capacity[i];
+            if (val <= 0) {
+                break;
+            }
+        }
+        return result;
     }
 }
