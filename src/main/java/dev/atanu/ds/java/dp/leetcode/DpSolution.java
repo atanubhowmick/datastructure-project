@@ -1,7 +1,7 @@
 /**
  * 
  */
-package dev.atanu.ds.java.dp;
+package dev.atanu.ds.java.dp.leetcode;
 
 /**
  * @author Atanu Bhowmick
