@@ -27,11 +27,11 @@ public class SubsetSumSolution {
 
 	/**
 	 * Recursive solution
-	 * 
-	 * @param nums
-	 * @param sum
-	 * @param n
-	 * @return
+	 *
+	 * @param nums - nums
+	 * @param sum - sum
+	 * @param n - n
+	 * @return boolean
 	 */
 	public boolean hasSubsetSum(int[] nums, int sum, int n) {
 		if (sum == 0) {
@@ -52,11 +52,11 @@ public class SubsetSumSolution {
 	 * Check subset sum with memoization. For boolean output always use Boolean
 	 * (wrapper class) array matrix to store the result of the sub-problems. Boolean
 	 * gives TRUE, FALSE and NULL values to differentiate the outcome.
-	 * 
-	 * @param nums
-	 * @param sum
-	 * @param n
-	 * @return
+	 *
+	 * @param nums - nums
+	 * @param sum - sum
+	 * @param n - n
+	 * @return boolean
 	 */
 	public boolean hasSubsetSumMemoization(int[] nums, int sum, int n) {
 		Boolean[][] dp = new Boolean[n + 1][sum + 1];
@@ -89,10 +89,10 @@ public class SubsetSumSolution {
 	/**
 	 * Bottom-up solution
 	 * 
-	 * @param nums
-	 * @param sum
-	 * @param n
-	 * @return
+	 * @param nums - nums
+	 * @param sum - sum
+	 * @param n - n
+	 * @return boolean
 	 */
 	public boolean hasSubsetSumBottomUp(int[] nums, int sum, int n) {
 		boolean[][] dp = new boolean[n + 1][sum + 1];
