@@ -4,7 +4,7 @@
 package dev.atanu.ds.java.dp.knapsack.unbounded;
 
 /**
- * https://leetcode.com/problems/coin-change-2/
+ * https://leetcode.com/problems/coin-change-ii/
  * 
  * <br>
  * Number of ways to makeup the amount
@@ -36,10 +36,10 @@ public class CoinChangeSolution1 {
 
 		int[][] dp = new int[n + 1][amount + 1];
 
-		// If amount is zero, and array is empty, 1 would be returned
+		// If amount is zero, and coins are empty, 1 would be returned
 		dp[0][0] = 1;
 
-		// First row initialization
+		// If coins are empty but amount is present, 0 would be returned
 		for (int j = 1; j <= amount; j++) {
 			dp[0][j] = 0;
 		}

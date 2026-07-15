@@ -4,6 +4,8 @@
 package dev.atanu.ds.java.dp.lcs;
 
 /**
+ * Sequence - 1
+ * <p>
  * https://leetcode.com/problems/longest-common-subsequence/
  * https://www.geeksforgeeks.org/longest-common-subsequence-dp-using-memoization/
  * 
@@ -27,9 +29,9 @@ public class LongestCommonSubsequence {
 	/**
 	 * LCS - Recursive
 	 * 
-	 * @param text1
-	 * @param text2
-	 * @return
+	 * @param text1 - text1
+	 * @param text2 - text2
+	 * @return lcs
 	 */
 	public int lcsRecurrsion(String text1, String text2) {
 		return lcsRecurrsion(text1, text2, text1.length(), text2.length());
@@ -48,10 +50,10 @@ public class LongestCommonSubsequence {
 
 	/**
 	 * LCS - Memoization or top-down approach
-	 * 
-	 * @param text1
-	 * @param text2
-	 * @return
+	 *
+	 * @param text1 - text1
+	 * @param text2 - text2
+	 * @return lcs
 	 */
 	public int lcsMemoization(String text1, String text2) {
 		int m = text1.length();
@@ -85,10 +87,10 @@ public class LongestCommonSubsequence {
 
 	/**
 	 * LCS - BottomUp
-	 * 
-	 * @param text1
-	 * @param text2
-	 * @return
+	 *
+	 * @param text1 - text1
+	 * @param text2 - text2
+	 * @return lcs
 	 */
 	public int lcsBottomUp(String text1, String text2) {
 		int m = text1.length();

@@ -39,10 +39,9 @@ public class CoinChangeSolution2 {
 
 		int[][] dp = new int[n + 1][amount + 1];
 
-		// If coins is empty, and amount is zero, 1 would be returned
 		dp[0][0] = 0;
 
-		// First row initialization
+		// If no coin types are available, infinite number of coins required to make the amount
 		for (int j = 1; j <= amount; j++) {
 			dp[0][j] = Integer.MAX_VALUE - 1;
 		}

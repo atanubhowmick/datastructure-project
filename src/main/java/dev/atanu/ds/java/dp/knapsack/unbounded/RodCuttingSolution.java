@@ -26,9 +26,9 @@ public class RodCuttingSolution {
 	/**
 	 * Unbounded knapsack - recursion approach
 	 * 
-	 * @param price
-	 * @param maxLen
-	 * @return
+	 * @param price - price
+	 * @param maxLen - maxLen
+	 * @return maxPrice
 	 */
 	public int cutRodRecursion(int[] price, int maxLen) {
 		int[] len = new int[maxLen];
@@ -67,9 +67,9 @@ public class RodCuttingSolution {
 	/**
 	 * Unbounded Knapsack using top-down approach
 	 * 
-	 * @param price
-	 * @param maxLen
-	 * @return
+	 * @param price - price
+	 * @param maxLen - maxLen
+	 * @return maxPrice
 	 */
 	public int cutRodTopDown(int[] price, int maxLen) {
 		int[] len = new int[maxLen];
@@ -104,10 +104,9 @@ public class RodCuttingSolution {
 
 	/**
 	 * Unbounded Knapsack using bottom-up approach
-	 * 
-	 * @param len
-	 * @param price
-	 * @param maxLen
+	 *
+	 * @param price - price
+	 * @param maxLen - maxLen
 	 * @return maxPrice
 	 */
 	public int cutRodBottomUp(int[] price, int maxLen) {

@@ -1,4 +1,4 @@
-package dev.atanu.ds.java.dp.leetcode;
+package dev.atanu.ds.java.dp.one.dimension;
 
 import java.util.Arrays;
 
@@ -17,8 +17,10 @@ public class DecodeWays {
     }
 
     /**
-     * @param s
-     * @return
+     * Using recursion
+     *
+     * @param s - string
+     * @return number of ways
      */
     public int numDecodingsRecursion(String s) {
         if (s == null || s.isEmpty()) {
@@ -44,6 +46,13 @@ public class DecodeWays {
         return res;
     }
 
+
+    /**
+     * Using Memoization
+     *
+     * @param s - string
+     * @return number of ways
+     */
     public int numDecodingsMemoization(String s) {
         if (s == null || s.isEmpty()) {
             return 0;
@@ -75,6 +84,13 @@ public class DecodeWays {
         return dp[i];
     }
 
+
+    /**
+     * BottomUp approach
+     *
+     * @param s - string
+     * @return number of ways
+     */
     public int numDecodingsBottomUp(String s) {
         if (s == null || s.isEmpty()) {
             return 0;
@@ -95,6 +111,12 @@ public class DecodeWays {
         return dp[0];
     }
 
+
+    /**
+     * Space optimization
+     * @param s - string
+     * @return number of ways
+     */
     public int numDecodingsBottomUpConstantSpace(String s) {
         int dp1 = 1, dp2 = 0;
         int n = s.length();
