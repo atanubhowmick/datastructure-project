@@ -4,7 +4,7 @@
 package dev.atanu.ds.java.dp.lcs;
 
 /**
- * Sequence - 9
+ * Sequence - 6
  *
  * https://leetcode.com/problems/longest-palindromic-subsequence/
  * 

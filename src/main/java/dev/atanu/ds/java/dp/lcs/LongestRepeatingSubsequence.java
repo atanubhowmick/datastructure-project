@@ -4,7 +4,7 @@
 package dev.atanu.ds.java.dp.lcs;
 
 /**
- * Sequence - 8
+ * Sequence - 10
  *
  * @author Atanu Bhowmick
  *

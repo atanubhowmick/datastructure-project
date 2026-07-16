@@ -4,26 +4,26 @@
 package dev.atanu.ds.java.dp.lcs;
 
 /**
- * Sequence - 6
+ * Sequence - 7
  * https://www.geeksforgeeks.org/minimum-number-deletions-make-string-palindrome/
  * 
  * @author Atanu Bhowmick
  *
  */
-public class MinimumDeletionPalindrom {
+public class MinimumDeletionPalindrome {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MinimumDeletionPalindrom deletionPalindrom = new MinimumDeletionPalindrom();
+		MinimumDeletionPalindrome deletionPalindrom = new MinimumDeletionPalindrome();
 		System.out.println(deletionPalindrom.minimumDeletionPalindrom("atata1"));
 	}
 
 	/**
 	 * 
-	 * @param s
-	 * @return
+	 * @param s - s
+	 * @return minimum deletion
 	 */
 	public int minimumDeletionPalindrom(String s) {
 		String reversedString = new StringBuffer(s).reverse().toString();

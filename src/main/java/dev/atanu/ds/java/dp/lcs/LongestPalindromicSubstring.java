@@ -1,7 +1,7 @@
 package dev.atanu.ds.java.dp.lcs;
 
 /**
- * Sequence - 10
+ * Sequence - 11
  *
  * 5. Longest Palindromic Substring
  * https://leetcode.com/problems/longest-palindromic-substring/
