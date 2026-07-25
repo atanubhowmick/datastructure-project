@@ -21,7 +21,7 @@ public class LongestCommonSubsequence {
 		LongestCommonSubsequence lcs = new LongestCommonSubsequence();
 		String text1 = "acdk";
 		String text2 = "abced";
-		System.out.println(lcs.lcsRecurrsion(text1, text2));
+		System.out.println(lcs.lcsRecursion(text1, text2));
 		System.out.println(lcs.lcsMemoization(text1, text2));
 		System.out.println(lcs.lcsBottomUp(text1, text2));
 	}
@@ -33,18 +33,18 @@ public class LongestCommonSubsequence {
 	 * @param text2 - text2
 	 * @return lcs
 	 */
-	public int lcsRecurrsion(String text1, String text2) {
-		return lcsRecurrsion(text1, text2, text1.length(), text2.length());
+	public int lcsRecursion(String text1, String text2) {
+		return lcsRecursion(text1, text2, text1.length(), text2.length());
 	}
 
-	private int lcsRecurrsion(String text1, String text2, int m, int n) {
+	private int lcsRecursion(String text1, String text2, int m, int n) {
 		if (m == 0 || n == 0) {
 			return 0;
 		}
 		if (text1.charAt(m - 1) == text2.charAt(n - 1)) {
-			return 1 + lcsRecurrsion(text1, text2, m - 1, n - 1);
+			return 1 + lcsRecursion(text1, text2, m - 1, n - 1);
 		} else {
-			return Math.max(lcsRecurrsion(text1, text2, m - 1, n), lcsRecurrsion(text1, text2, m, n - 1));
+			return Math.max(lcsRecursion(text1, text2, m - 1, n), lcsRecursion(text1, text2, m, n - 1));
 		}
 	}
 

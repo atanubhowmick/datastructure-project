@@ -2,7 +2,7 @@ package dev.atanu.ds.java.dp.lcs;
 
 /**
  * 72. Edit Distance
- * https://leetcode.com/problems/edit-distance/description/
+ * https://leetcode.com/problems/edit-distance/
  *
  */
 public class EditDistance {
