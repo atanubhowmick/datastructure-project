@@ -21,7 +21,6 @@ public class KDistinctElementSlidingWindow {
      *     <li>https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
      *     <li>https://leetcode.com/problems/count-number-of-nice-subarrays/
      *     <li>https://leetcode.com/problems/subarrays-with-k-different-integers/
-     *     <li>https://leetcode.com/problems/fruit-into-baskets/
      * </ul>
      *
      *
@@ -145,11 +144,16 @@ public class KDistinctElementSlidingWindow {
             while(k < 0 ) {
                 map.put(nums[start], map.get(nums[start]) - 1);
                 if(map.get(nums[start]) == 0) {
+                    map.remove(nums[start]); // redundant
                     k++;
                 }
                 start++;
             }
-            result += (end -start + 1);
+            // If the subarray is [1, 2, 1], left subarrays are already taken, only add right subarrays which is same as length.
+            // Subarray = [1] -> left subarrays = [1]
+            // Subarray = [1, 2] -> left subarrays = [1], right subarray = [1, 2], [2]
+            // Subarray = [1, 2, 1] -> left subarrays = [1], [1, 2], [2], right subarray = [1, 2, 1], [2, 1], [1]
+            result += (end - start + 1);
             end++;
         }
 
