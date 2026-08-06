@@ -1,10 +1,13 @@
 package dev.atanu.ds.java.kadanes.algorithm;
 
-/**
- * https://leetcode.com/problems/maximum-subarray/
- */
 public class MaxSubArraySolution {
 
+    /**
+     * https://leetcode.com/problems/maximum-subarray/
+     *
+     * @param nums - nums
+     * @return max
+     */
     public int maxSubArray(int[] nums) {
         int sum = nums[0];
         int maxSum = nums[0];
@@ -40,8 +43,9 @@ public class MaxSubArraySolution {
             max = Math.max(max, currMax);
         }
 
-        if (max < 0)
+        if (max < 0) {
             return max;
+        }
         return Math.max(max, total - min);
     }
 
